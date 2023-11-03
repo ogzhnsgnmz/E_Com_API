@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace ECom.Application.DTOs.User
 {
-    internal class CreateUserResponse
+    public class CreateUserResponse
     {
+        public bool Succeeded { get; set; }
+        public string Message { get; set; }
     }
 }

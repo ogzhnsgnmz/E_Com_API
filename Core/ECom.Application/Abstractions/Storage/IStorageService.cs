@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ECom.Application.Abstractions.Storage
 {
-    internal interface IStorageService
+    public interface IStorageService : IStorage
     {
+        public string StorageName { get; }
     }
 }

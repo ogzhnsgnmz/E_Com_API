@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace ECom.Application.DTOs
 {
-    internal class Token
+    public class Token
     {
+        public string AccessToken { get; set; }
+        public DateTime Expiration { get; set; }
+        public string RefreshToken { get; set; }
     }
 }

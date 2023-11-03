@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Application.Repositories.Product
 {
-    internal interface IProductReadRepository
+    public interface IProductReadRepository : IReadRepository<Domain.Product>
     {
     }
 }

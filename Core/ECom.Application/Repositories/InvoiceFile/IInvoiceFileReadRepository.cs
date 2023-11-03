@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Application.Repositories.InvoiceFile
 {
-    internal interface IInvoiceFileReadRepository
+    public interface IInvoiceFileReadRepository : IReadRepository<Domain.InvoiceFile>
     {
     }
 }

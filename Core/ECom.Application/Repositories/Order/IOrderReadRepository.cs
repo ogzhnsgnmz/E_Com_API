@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Application.Repositories.Order
 {
-    internal interface IOrderReadRepository
+    public interface IOrderReadRepository : IReadRepository<Domain.Order>
     {
     }
 }

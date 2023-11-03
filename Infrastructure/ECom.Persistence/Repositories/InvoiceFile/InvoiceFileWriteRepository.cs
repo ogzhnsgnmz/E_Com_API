@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ECom.Application.Repositories.InvoiceFile;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace ECom.Persistence.Repositories.InvoiceFile
 {
-    internal class InvoiceFileWriteRepository
+    public class InvoiceFileWriteRepository : WriteRepository<Domain.InvoiceFile>, IInvoiceFileWriteRepository
     {
+        public InvoiceFileWriteRepository(EComDbContext context) : base(context)
+        {
+        }
     }
 }

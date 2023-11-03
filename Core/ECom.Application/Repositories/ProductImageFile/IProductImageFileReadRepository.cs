@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Application.Repositories.ProductImageFile
 {
-    internal interface IProductImageFileReadRepository
+    public interface IProductImageFileReadRepository : IReadRepository<Domain.ProductImageFile>
     {
     }
 }

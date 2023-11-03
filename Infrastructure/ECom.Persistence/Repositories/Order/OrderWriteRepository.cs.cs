@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ECom.Application.Repositories.Order;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace ECom.Persistence.Repositories.Order
 {
-    internal class OrderWriteRepository
+    public class OrderWriteRepository : WriteRepository<Domain.Order>, IOrderWriteRepository
     {
+        public OrderWriteRepository(EComDbContext context) : base(context)
+        {
+        }
     }
 }

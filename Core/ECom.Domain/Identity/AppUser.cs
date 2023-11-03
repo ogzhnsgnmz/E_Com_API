@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace ECom.Domain.Identity
 {
-    internal class AppUser
+    public class AppUser : IdentityUser<string>
     {
+        public string NameSurname { get; set; }
+        public string? RefreshToken { get; set; }
+        public DateTime? RefreshTokenAndDate { get; set; }
     }
 }

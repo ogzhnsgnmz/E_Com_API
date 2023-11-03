@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Application.Abstractions.Storage.Local
 {
-    internal interface ILocalStorage
+    public interface ILocalStorage : IStorage
     {
     }
 }

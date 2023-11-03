@@ -7,8 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="11.1.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.13">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+    <PackageReference Include="System.Net.Http.Json" Version="7.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\ECom.Application\ECom.Application.csproj" />
+    <ProjectReference Include="..\..\Core\ECom.Domain\ECom.Domain.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\ECom.Infrastructure\ECom.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\ECom.Persistence\ECom.Persistence.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\ECom.SignalR\ECom.SignalR.csproj" />
   </ItemGroup>
 
 </Project>

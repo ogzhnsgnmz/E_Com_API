@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Application.Repositories.File
 {
-    internal interface IFileReadRepository
+    public interface IFileReadRepository : IReadRepository<Domain.File>
     {
     }
 }

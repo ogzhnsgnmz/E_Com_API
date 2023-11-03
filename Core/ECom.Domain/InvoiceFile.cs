@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Domain
 {
-    internal class InvoiceFile
+    public class InvoiceFile : File
     {
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Application.Repositories.Customer
 {
-    internal interface ICustomerReadRepository
+    public interface ICustomerReadRepository : IReadRepository<Domain.Customer>
     {
     }
 }

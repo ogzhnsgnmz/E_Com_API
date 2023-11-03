@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Application.Repositories.Product
 {
-    internal interface IProductWriteRepository
+    public interface IProductWriteRepository : IWriteRepository<Domain.Product>
     {
     }
 }

@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ECom.Application.ViewModels
+namespace ECom.Application.DTOs.Configuration
 {
-    public class VM_Create_Product
+    public class Menu
     {
         public string Name { get; set; }
-        public int Stock { get; set; }
-        public float Price { get; set; }
+        public List<Action> Actions { get; set; } = new();
     }
 }

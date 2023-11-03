@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Application.Repositories.Order
 {
-    internal interface IOrderWriteRepository
+    public interface IOrderWriteRepository : IWriteRepository<Domain.Order>
     {
     }
 }

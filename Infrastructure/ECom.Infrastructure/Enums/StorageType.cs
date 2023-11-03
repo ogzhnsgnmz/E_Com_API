@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace ECom.Infrastructure.Enums
 {
-    internal class StorageType
+    public enum StorageType
     {
+        Local,
+        Azure,
+        AWS
     }
 }

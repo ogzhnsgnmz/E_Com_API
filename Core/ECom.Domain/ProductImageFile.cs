@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ECom.Domain
 {
-    internal class ProductImageFile
+    public class ProductImageFile : File
     {
+        public ICollection<Product> Products { get; set; }
     }
 }

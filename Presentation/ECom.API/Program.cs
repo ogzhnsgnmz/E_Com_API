@@ -1,4 +1,19 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using ECom.Persistence;
+using ECom.Infrastructure;
+using ECom.Application;
+using ECom.Infrastructure.Services.Storage.Azure;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddPersistenceServices();
+builder.Services.AddInfrastructureServices();
+builder.Services.AddApplicationServices();
+
+builder.Services.AddStorage<AzureStorage>();
+
+builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
+    policy.WithOrigins("http://localhost:4200", "https://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowCredentials()
+));
 
 // Add services to the container.
 
@@ -15,6 +30,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors();
 
 app.UseHttpsRedirection();
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Application.Repositories.ProductImageFile
 {
-    internal interface IProductImageFileWriteRepository
+    public interface IProductImageFileWriteRepository : IWriteRepository<Domain.ProductImageFile>
     {
     }
 }
