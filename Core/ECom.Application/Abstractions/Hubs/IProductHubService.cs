@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ECom.Application.Abstractions.Hubs
 {
-    internal interface IProductHubService
+    public interface IProductHubService
     {
+        Task ProductAddedMessageAsync(string message);
     }
 }

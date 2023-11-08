@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace ECom.SignalR
 {
-    internal class ReceiveFunctionNames
+    public static class ReceiveFunctionNames
     {
+        public const string ProductAddedMessage = "receiveProductAddedMessage";
+        public const string OrderAddedMessage = "receiveOrderAddedMessage";
     }
 }

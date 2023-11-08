@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace ECom.Application.Abstractions.Services.Authentication
 {
-    internal interface IExternalAuthentication
+    public interface IExternalAuthentication
     {
+        Task<DTOs.Token> FacebookLoginAsync(string authToken, int accessTokenLifeTime);
+        Task<DTOs.Token> GoogleLoginAsync(string idToken, int accessTokenLifeTime);
     }
 }

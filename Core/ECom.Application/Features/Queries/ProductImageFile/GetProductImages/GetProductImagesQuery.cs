@@ -1,12 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ECom.Application.Repositories.Product;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECom.Application.Features.Queries.ProductImageFile.GetProductImages
 {
-    internal class GetProductImagesQuery
+    public class GetProductImagesQueryHandler : IRequestHandler<GetProductImagesQueryRequest, List<GetProductImagesQueryResponse>>
     {
+        readonly IProductReadRepository _ProductReadRepository;
+        readonly IConfiguration _configuration;
+
+        public GetProductImagesQueryHandler(IProductReadRepository ProductReadRepository, IConfiguration configuration = null)
+        {
+            _ProductReadRepository = ProductReadRepository;
+            _configuration = configuration;
+        }
+
+        public async Task<List<GetProductImagesQueryResponse>> Handle(GetProductImagesQueryRequest request, CancellationToken cancellationToken)
+        {
+            Domain.Product? Product = await _ProductReadRepository.Table.Include(p => p.ProductImageFiles).FirstOrDefaultAsync(p => p.Id == Guid.Parse(request.Id));
+
+            return Product?.ProductImageFiles.Select(p => new GetProductImagesQueryResponse
+            {
+                Path = $"{_configuration["BaseStorageUrl"]}/{p.Path}",
+                FileName = p.FileName,
+                Id = p.Id
+            }).ToList();
+        }
+    }
+    public class GetProductImagesQueryRequest : IRequest<List<GetProductImagesQueryResponse>>
+    {
+        public string Id { get; set; }
+    }
+    public class GetProductImagesQueryResponse
+    {
+        public Guid Id { get; set; }
+        public string Path { get; set; }
+        public string FileName { get; set; }
     }
 }

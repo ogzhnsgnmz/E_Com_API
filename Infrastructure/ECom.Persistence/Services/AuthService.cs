@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Persistence.Services
 {
-    internal class AuthService
+    public class AuthService
     {
     }
 }

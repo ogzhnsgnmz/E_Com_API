@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace ECom.Application.Abstractions.Services.Authentication
 {
-    internal interface IInternalAuthentication
+    public interface IInternalAuthentication
     {
+        Task<DTOs.Token> LoginAsync(string usernameOrEmail, string password, int accessTokenLifeTime);
+        Task<DTOs.Token> RefreshTokenLoginAsync(string refreshToken);
     }
 }

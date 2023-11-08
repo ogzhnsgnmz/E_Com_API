@@ -1,11 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
-namespace ECom.API.Controllers
+﻿namespace OgrSorAPI.API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class RefreshTokenLoginRequestController : ControllerBase
+    public class RefreshTokenLoginRequest
     {
     }
 }

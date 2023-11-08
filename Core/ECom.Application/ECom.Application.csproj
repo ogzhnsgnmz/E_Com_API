@@ -23,4 +23,16 @@
     <ProjectReference Include="..\ECom.Domain\ECom.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Repositories\BaseFiles\" />
+    <Folder Include="Repositories\Basket\" />
+    <Folder Include="Repositories\BasketItem\" />
+    <Folder Include="Repositories\Brand\" />
+    <Folder Include="Repositories\Category\" />
+    <Folder Include="Repositories\Color\" />
+    <Folder Include="Repositories\Size\" />
+    <Folder Include="Repositories\Offer\" />
+    <Folder Include="SpecificationPattern\" />
+  </ItemGroup>
+
 </Project>

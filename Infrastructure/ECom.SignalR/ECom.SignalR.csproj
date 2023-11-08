@@ -6,4 +6,16 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\ECom.Application\ECom.Application.csproj" />
+    <ProjectReference Include="..\..\Core\ECom.Domain\ECom.Domain.csproj" />
+    <ProjectReference Include="..\ECom.Infrastructure\ECom.Infrastructure.csproj" />
+    <ProjectReference Include="..\ECom.Persistence\ECom.Persistence.csproj" />
+  </ItemGroup>
+
 </Project>

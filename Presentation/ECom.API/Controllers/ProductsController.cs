@@ -1,4 +1,11 @@
-﻿using ECom.Application.Features.Queries.Product.GetAllProduct;
+﻿using ECom.Application.Features.Command.Product.CreateProduct;
+using ECom.Application.Features.Command.Product.RemoveProduct;
+using ECom.Application.Features.Command.Product.UpdateProduct;
+using ECom.Application.Features.Command.ProductImageFile.RemoveProductImage;
+using ECom.Application.Features.Command.ProductImageFile.UploadProductImage;
+using ECom.Application.Features.Queries.Product.GetAllProduct;
+using ECom.Application.Features.Queries.Product.GetByIdProduct;
+using ECom.Application.Features.Queries.ProductImageFile.GetProductImages;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +30,6 @@ namespace ECom.API.Controllers
             GetAllProductQueryResponse response = await _mediator.Send(getAllProductQueryRequest);
             return Ok(response);
         }
-        /*
 
         [HttpGet("{Id}")]
         public async Task<IActionResult> Get([FromRoute] GetByIdProductQueryRequest getByIdProductQueryRequest)
@@ -76,6 +82,5 @@ namespace ECom.API.Controllers
             RemoveProductImageCommandResponse response = await _mediator.Send(removeProductImageCommandRequest);
             return Ok();
         }
-        */
     }
 }
