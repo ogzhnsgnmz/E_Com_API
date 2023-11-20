@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Persistence.Repositories.InvoiceFile
 {
-    public class InvoiceFileWriteRepository : WriteRepository<Domain.InvoiceFile>, IInvoiceFileWriteRepository
+    public class InvoiceFileWriteRepository : WriteRepository<Domain.Entities.InvoiceFile>, IInvoiceFileWriteRepository
     {
         public InvoiceFileWriteRepository(EComDbContext context) : base(context)
         {

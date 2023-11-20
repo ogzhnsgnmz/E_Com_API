@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Persistence.Repositories.ProductImageFile
 {
-    public class ProductImageFileReadRepository : ReadRepository<Domain.ProductImageFile>, IProductImageFileReadRepository
+    public class ProductImageFileReadRepository : ReadRepository<Domain.Entities.ProductImageFile>, IProductImageFileReadRepository
     {
         public ProductImageFileReadRepository(EComDbContext context) : base(context)
         {

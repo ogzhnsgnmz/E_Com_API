@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Persistence.Repositories.ProductImageFile
 {
-    public class ProductImageFileWriteRepository : WriteRepository<Domain.ProductImageFile>, IProductImageFileWriteRepository
+    public class ProductImageFileWriteRepository : WriteRepository<Domain.Entities.ProductImageFile>, IProductImageFileWriteRepository
     {
         public ProductImageFileWriteRepository(EComDbContext context) : base(context)
         {

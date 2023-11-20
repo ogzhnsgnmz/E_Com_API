@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Persistence.Repositories.Color
 {
-    public class ColorReadRepository : ReadRepository<Domain.Color>, IColorReadRepository
+    public class ColorReadRepository : ReadRepository<Domain.Entities.Color>, IColorReadRepository
     {
         public ColorReadRepository(EComDbContext context) : base(context)
         {

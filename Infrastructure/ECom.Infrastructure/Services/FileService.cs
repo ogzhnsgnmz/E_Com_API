@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ECom.Infrastructure.Services
+namespace ECom.Infrastructure.Services;
+
+internal class FileService
 {
-    internal class FileService
-    {
-    }
 }

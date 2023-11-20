@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Persistence.Repositories.Customer
 {
-    public class CustomerReadRepository : ReadRepository<Domain.Customer>, ICustomerReadRepository
+    public class CustomerReadRepository : ReadRepository<Domain.Entities.Customer>, ICustomerReadRepository
     {
         public CustomerReadRepository(EComDbContext context) : base(context)
         {

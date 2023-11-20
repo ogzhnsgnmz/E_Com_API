@@ -1,5 +1,5 @@
 ﻿using ECom.Application.Abstractions.Token;
-using ECom.Domain.Identity;
+using ECom.Domain.Entities.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -11,55 +11,54 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ECom.Infrastructure.Services.Token
+namespace ECom.Infrastructure.Services.Token;
+
+public class TokenHandler : ITokenHandler
 {
-    public class TokenHandler : ITokenHandler
+    readonly IConfiguration _configuration;
+
+    public TokenHandler(IConfiguration configuration)
     {
-        readonly IConfiguration _configuration;
+        _configuration = configuration;
+    }
 
-        public TokenHandler(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
+    public Application.DTOs.Token CreateAccessToken(int second, AppUser user)
+    {
+        Application.DTOs.Token token = new();
 
-        public Application.DTOs.Token CreateAccessToken(int second, AppUser user)
-        {
-            Application.DTOs.Token token = new();
+        //Security Key'in simetriğini alıyoruz.
+        SymmetricSecurityKey securityKey = new(Encoding.UTF8.GetBytes(_configuration["Token:SecurityKey"]));
 
-            //Security Key'in simetriğini alıyoruz.
-            SymmetricSecurityKey securityKey = new(Encoding.UTF8.GetBytes(_configuration["Token:SecurityKey"]));
+        //Şifrelenmiş kimliği oluşturuyoruz.
+        SigningCredentials signingCredentials = new(securityKey, SecurityAlgorithms.HmacSha256);
 
-            //Şifrelenmiş kimliği oluşturuyoruz.
-            SigningCredentials signingCredentials = new(securityKey, SecurityAlgorithms.HmacSha256);
+        //Oluşturulacak token ayarlarını veriyoruz.
+        token.Expiration = DateTime.UtcNow.AddSeconds(second).AddHours(3);
 
-            //Oluşturulacak token ayarlarını veriyoruz.
-            token.Expiration = DateTime.UtcNow.AddSeconds(second).AddHours(3);
+        JwtSecurityToken securityToken = new(
+            audience: _configuration["Token:Audience"],
+            issuer: _configuration["Token:Issuer"],
+            expires: token.Expiration,
+            notBefore: DateTime.UtcNow, // Token üretildiği andan ne kadar süre sonra devreye gireceğini belirtir.
+            signingCredentials: signingCredentials,
+            claims: new List<Claim> { new(ClaimTypes.Name, user.UserName) }
+            );
 
-            JwtSecurityToken securityToken = new(
-                audience: _configuration["Token:Audience"],
-                issuer: _configuration["Token:Issuer"],
-                expires: token.Expiration,
-                notBefore: DateTime.UtcNow,
-                signingCredentials: signingCredentials,
-                claims: new List<Claim> { new(ClaimTypes.Name, user.UserName) }
-                );
+        //Token oluşturucu sınıfından bir örnek alalım.
+        JwtSecurityTokenHandler tokenHandler = new();
+        token.AccessToken = tokenHandler.WriteToken(securityToken);
 
-            //Token oluşturucu sınıfından bir örnek alalım.
-            JwtSecurityTokenHandler tokenHandler = new();
-            token.AccessToken = tokenHandler.WriteToken(securityToken);
+        //string refreshToken = CreateRefreshToken();
+        token.RefreshToken = CreateRefreshToken();
 
-            //string refreshToken = CreateRefreshToken();
-            token.RefreshToken = CreateRefreshToken();
+        return token;
+    }
 
-            return token;
-        }
-
-        public string CreateRefreshToken()
-        {
-            byte[] number = new byte[32];
-            using RandomNumberGenerator random = RandomNumberGenerator.Create();
-            random.GetBytes(number);
-            return Convert.ToBase64String(number);
-        }
+    public string CreateRefreshToken()
+    {
+        byte[] number = new byte[32];
+        using RandomNumberGenerator random = RandomNumberGenerator.Create();
+        random.GetBytes(number);
+        return Convert.ToBase64String(number);
     }
 }

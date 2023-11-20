@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Persistence.Repositories.Size
 {
-    public class SizeWriteRepository : WriteRepository<Domain.Size>, ISizeWriteRepository
+    public class SizeWriteRepository : WriteRepository<Domain.Entities.Size>, ISizeWriteRepository
     {
         public SizeWriteRepository(EComDbContext context) : base(context)
         {

@@ -22,18 +22,411 @@ namespace ECom.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ECom.Domain.Customer", b =>
+            modelBuilder.Entity("ECom.Domain.Entities.Basket", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("Baskets");
+                });
+
+            modelBuilder.Entity("ECom.Domain.Entities.BasketItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BasketId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BasketId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("BasketItems");
+                });
+
+            modelBuilder.Entity("ECom.Domain.Entities.Brand", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Brands");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "LCWAIKIKI",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "LCWAIKIKI Limited",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "LCWAIKIKI Modest",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "LCWAIKIKI Casual",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "LCWAIKIKI Vision",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "MIZALLE",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "BENETTON",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "BIANCA",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "QOOQ STORE",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
+                });
+
+            modelBuilder.Entity("ECom.Domain.Entities.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Mont",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Hırka ve Süveter",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Kazak",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Bluz",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Gömlek",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Tişört",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Sweatshirt",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Jean",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
+                });
+
+            modelBuilder.Entity("ECom.Domain.Entities.Color", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Colors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Ekru",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Kırmızı",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Lacivert",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Açık Kahverengi",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Mavi",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Antrasit",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Koyu Gri",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Canlı Turuncu",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Bej Çizgili",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Beyaz",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Gri",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "İndigo Melanj",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Koyu Rodeo",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Optik Beyaz",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
+                });
+
+            modelBuilder.Entity("ECom.Domain.Entities.Common.BaseFile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Storage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BaseFiles");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("BaseFile");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("ECom.Domain.Entities.Customer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
@@ -43,18 +436,16 @@ namespace ECom.Persistence.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("ECom.Domain.File", b =>
+            modelBuilder.Entity("ECom.Domain.Entities.File", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FileName")
                         .IsRequired()
@@ -74,16 +465,15 @@ namespace ECom.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Files");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("File");
-
-                    b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("ECom.Domain.Identity.AppRole", b =>
+            modelBuilder.Entity("ECom.Domain.Entities.Identity.AppRole", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -105,12 +495,29 @@ namespace ECom.Persistence.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
                 });
 
-            modelBuilder.Entity("ECom.Domain.Identity.AppUser", b =>
+            modelBuilder.Entity("ECom.Domain.Entities.Identity.AppUser", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
@@ -120,21 +527,28 @@ namespace ECom.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NameSurname")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -156,7 +570,7 @@ namespace ECom.Persistence.Migrations
                     b.Property<string>("RefreshToken")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("RefreshTokenAndDate")
+                    b.Property<DateTime?>("RefreshTokenEndDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("SecurityStamp")
@@ -166,6 +580,7 @@ namespace ECom.Persistence.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -180,27 +595,237 @@ namespace ECom.Persistence.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "fc8abb53-e961-4ad6-8f5e-3a87b2b1cc1c",
+                            Email = "ouz@seeddata.com",
+                            EmailConfirmed = true,
+                            FirstName = "Oğuzhan",
+                            LastName = "Söğünmez",
+                            LockoutEnabled = false,
+                            NormalizedEmail = " OUZ@SEEDDATA.COM",
+                            NormalizedUserName = "OGZHNSGNNMZ",
+                            PasswordHash = "AQAAAAIAAYagAAAAECC2YTB2123c9QNOOiZUHuPZyafgsNn7TIYIRi/wCMNsZL+JtJ6LSc9ztO5uyqdmdA==",
+                            PhoneNumber = "0541 555 ####",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "5811d4bd-f722-4490-9fcc-5b5e69a3dd1e",
+                            TwoFactorEnabled = false,
+                            UserName = "ogzhnsgnmz"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "3ef84980-8777-4942-8ddb-6c6234e0c634",
+                            Email = "umay@seeddata.com",
+                            EmailConfirmed = true,
+                            FirstName = "Umay",
+                            LastName = "Zengin",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "UMAY@SEEDDATA.COM",
+                            NormalizedUserName = "UMAYZENGIN",
+                            PasswordHash = "AQAAAAIAAYagAAAAECrOVpnQoRzPuQqO8PBsp5ofMxvnYP9Smi1zBw0n0ivUW6tCfYqxt4bAD/ebrCRNzA==",
+                            PhoneNumber = "0542 555 ####",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "0b37f4bb-9fcd-4011-b740-6ce6a656b19c",
+                            TwoFactorEnabled = false,
+                            UserName = "umayzengin"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "6c9d5a72-5adb-46e0-8017-314d8244695b",
+                            Email = "selim@seeddata.com",
+                            EmailConfirmed = true,
+                            FirstName = "Selim",
+                            LastName = "Karaca",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "SELIM@SEEDDATA.COM",
+                            NormalizedUserName = "SELIMKARACA",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIUZaWDUwEqt0X6/T9/f3OOdmciaJWyDrz7Vd4RoCi0xDHnvVfVcV5GTD2eoh0reUw==",
+                            PhoneNumber = "0543 555 ####",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "47b9a8aa-3e71-48c4-a34a-7fcac0be0057",
+                            TwoFactorEnabled = false,
+                            UserName = "selimkaraca"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "7a0d70d0-5153-4334-a9e6-24222a5da1f0",
+                            Email = "emine@seeddata.com",
+                            EmailConfirmed = true,
+                            FirstName = "Emine",
+                            LastName = "Yıldırım",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "EMINE@SEEDDATA.COM",
+                            NormalizedUserName = "EMINEYILDIRIM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEA70kdWXlZPkMqsjW0zgmX1ZsUNRWuQ/uPHhJ1cYu+i6WTAtJTGU4jqh+5c/OtyHrw==",
+                            PhoneNumber = "0544 555 ####",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "c235b6b8-ddc1-4432-9ff5-668dab0b3d1b",
+                            TwoFactorEnabled = false,
+                            UserName = "emineyıldırım"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "a91efcce-7978-42a1-91cb-d43c75842140",
+                            Email = "ihsan@seeddata.com",
+                            EmailConfirmed = true,
+                            FirstName = "İhsan",
+                            LastName = "Yenilmez",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "IHSAN@SEEDDATA.COM",
+                            NormalizedUserName = "IHSANYENILMEZ",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPkERMOPF69gz9G0H7DKJMrKTp4mEfn41v9p05Ttl+9Xd6g1FyATFG+oWLBj+/OUgg==",
+                            PhoneNumber = "0545 555 ####",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "736c19c9-5169-4259-aeb0-502e22824ca1",
+                            TwoFactorEnabled = false,
+                            UserName = "ihsanyenilmez"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "7c6a383c-a6bf-4c5e-b8c4-3f8d20f1062c",
+                            Email = "berrin@seeddata.com",
+                            EmailConfirmed = true,
+                            FirstName = "Berrin",
+                            LastName = "Miral",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "BERRIN@SEEDDATA.COM",
+                            NormalizedUserName = "BERRINMIRAL",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJiaIUb9dEMGl9WTywt+B9VDCZi15OGBzwzqlr9lEgqoPe7aVWpaVlWRPp/UC8EcZA==",
+                            PhoneNumber = "0546 555 ####",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "9d428a10-0736-402e-b1f0-c442fd89b6dd",
+                            TwoFactorEnabled = false,
+                            UserName = "berrinmiral"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "e2d73c52-1ea2-4414-b3d9-7349349ab4fc",
+                            Email = "salih@seeddata.com",
+                            EmailConfirmed = true,
+                            FirstName = "Salih",
+                            LastName = "Yurdakul",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "SALIH@SEEDDATA.COM",
+                            NormalizedUserName = "SALIHYURDAKUL",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDUo7EzHoOiIfczrxfZ0l0gbttzCT8trerdSlayftKrhMnclmvcOIgoSrez4BYD+mA==",
+                            PhoneNumber = "0547 555 ####",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "ffbe1b4f-0e07-460c-a67a-5f0aec4825ff",
+                            TwoFactorEnabled = false,
+                            UserName = "salihyurdakul"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "198a6ed9-560b-46d9-9f1f-4a20f620b81a",
+                            Email = "zafer@seeddata.com",
+                            EmailConfirmed = true,
+                            FirstName = "Zafer",
+                            LastName = "Kırat",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ZAFER@SEEDDATA.COM",
+                            NormalizedUserName = "ZAFERKIRAT",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPwALh6owmNRrpBQuOEUHZx7UiHJiQRqltZYrwHtvCfb5K+7xzyK+dqNRi+awDFcFA==",
+                            PhoneNumber = "0548 555 ####",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "4678050e-863b-4609-ab1a-d65a2ee1d930",
+                            TwoFactorEnabled = false,
+                            UserName = "zaferkırat"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "2b80ffa4-b2d6-41f3-a65e-7128571d7417",
+                            Email = "emre@seeddata.com",
+                            EmailConfirmed = true,
+                            FirstName = "Emre",
+                            LastName = "Demir",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "EMRE@SEEDDATA.COM",
+                            NormalizedUserName = "EMREDEMIR",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOmnkK2BbA0K6MEUCrlkRdvnKGIE1ssAdjot1p1FcuT4OTSGl+d6geaUvpVghCLdGA==",
+                            PhoneNumber = "0549 555 ####",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "8740ee7a-1efa-45b0-b7c1-37bded8f3708",
+                            TwoFactorEnabled = false,
+                            UserName = "emredemir"
+                        });
                 });
 
-            modelBuilder.Entity("ECom.Domain.Order", b =>
+            modelBuilder.Entity("ECom.Domain.Entities.Offer", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("CustomerId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<bool>("IsAccepted")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("OfferPrice")
+                        .HasPrecision(14, 2)
+                        .HasColumnType("decimal(14,2)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Offers");
+                });
+
+            modelBuilder.Entity("ECom.Domain.Entities.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
@@ -212,21 +837,45 @@ namespace ECom.Persistence.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("ECom.Domain.Product", b =>
+            modelBuilder.Entity("ECom.Domain.Entities.Product", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BrandId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ColorId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsOfferable")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSold")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<float>("Price")
                         .HasColumnType("real");
+
+                    b.Property<int>("SizeId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Stock")
                         .HasColumnType("int");
@@ -236,10 +885,393 @@ namespace ECom.Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("BrandId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("ColorId");
+
+                    b.HasIndex("SizeId");
+
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AppUserId = 1,
+                            BrandId = 1,
+                            CategoryId = 1,
+                            ColorId = 1,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsOfferable = true,
+                            IsSold = false,
+                            Name = "Dik Yaka Erkek Deri Mont",
+                            Price = 2699.99f,
+                            SizeId = 1,
+                            Stock = 400,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AppUserId = 1,
+                            BrandId = 1,
+                            CategoryId = 1,
+                            ColorId = 2,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsOfferable = true,
+                            IsSold = false,
+                            Name = "Biker Yaka Erkek Deri Mont",
+                            Price = 2699.99f,
+                            SizeId = 1,
+                            Stock = 400,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AppUserId = 1,
+                            BrandId = 1,
+                            CategoryId = 1,
+                            ColorId = 3,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsOfferable = true,
+                            IsSold = false,
+                            Name = "Gömlek Yaka Erkek Şişme Mont",
+                            Price = 2699.99f,
+                            SizeId = 1,
+                            Stock = 400,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AppUserId = 1,
+                            BrandId = 4,
+                            CategoryId = 2,
+                            ColorId = 4,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsOfferable = true,
+                            IsSold = false,
+                            Name = "Kuşak Detaylı Uzun Kollu Kadın Triko Hırka",
+                            Price = 499.99f,
+                            SizeId = 2,
+                            Stock = 400,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AppUserId = 2,
+                            BrandId = 5,
+                            CategoryId = 2,
+                            ColorId = 5,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsOfferable = true,
+                            IsSold = false,
+                            Name = "Kapüşonlu Kendinden Desenli Kadın Süveter",
+                            Price = 189.99f,
+                            SizeId = 3,
+                            Stock = 400,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AppUserId = 2,
+                            BrandId = 6,
+                            CategoryId = 3,
+                            ColorId = 6,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsOfferable = true,
+                            IsSold = false,
+                            Name = "Balıkçı Yaka Uzun Kollu Erkek Triko Kazak",
+                            Price = 79.99f,
+                            SizeId = 3,
+                            Stock = 400,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 7,
+                            AppUserId = 2,
+                            BrandId = 7,
+                            CategoryId = 3,
+                            ColorId = 7,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsOfferable = true,
+                            IsSold = false,
+                            Name = "Bisiklet Yaka Uzun Kollu Çizgili Erkek Triko Kazak",
+                            Price = 149.99f,
+                            SizeId = 4,
+                            Stock = 400,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 8,
+                            AppUserId = 2,
+                            BrandId = 8,
+                            CategoryId = 4,
+                            ColorId = 8,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsOfferable = false,
+                            IsSold = false,
+                            Name = "Kalp Yaka Kolsız Kadın Blız",
+                            Price = 449.99f,
+                            SizeId = 4,
+                            Stock = 400,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 9,
+                            AppUserId = 3,
+                            BrandId = 9,
+                            CategoryId = 4,
+                            ColorId = 9,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsOfferable = true,
+                            IsSold = true,
+                            Name = "Renk Bloklu Uzun Kollu Kadın Bluz",
+                            Price = 599.99f,
+                            SizeId = 5,
+                            Stock = 400,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 10,
+                            AppUserId = 3,
+                            BrandId = 1,
+                            CategoryId = 5,
+                            ColorId = 10,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsOfferable = true,
+                            IsSold = false,
+                            Name = "Uzun Kollu Poplin Erkek Gömlek",
+                            Price = 349.99f,
+                            SizeId = 5,
+                            Stock = 400,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 11,
+                            AppUserId = 3,
+                            BrandId = 2,
+                            CategoryId = 5,
+                            ColorId = 11,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsOfferable = true,
+                            IsSold = false,
+                            Name = "Uzun Kollu Keten Erkek Gömlek",
+                            Price = 349.99f,
+                            SizeId = 6,
+                            Stock = 400,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 12,
+                            AppUserId = 3,
+                            BrandId = 3,
+                            CategoryId = 6,
+                            ColorId = 12,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsOfferable = false,
+                            IsSold = false,
+                            Name = "Tül Detaylı Kadın Lima Tişört",
+                            Price = 199.99f,
+                            SizeId = 6,
+                            Stock = 400,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 13,
+                            AppUserId = 4,
+                            BrandId = 4,
+                            CategoryId = 6,
+                            ColorId = 13,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsOfferable = true,
+                            IsSold = false,
+                            Name = "Bisiklet Yaka Baskılı Kadın Tişört",
+                            Price = 199.99f,
+                            SizeId = 7,
+                            Stock = 400,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 14,
+                            AppUserId = 5,
+                            BrandId = 5,
+                            CategoryId = 7,
+                            ColorId = 14,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsOfferable = true,
+                            IsSold = false,
+                            Name = "Baskılı Erkek Sweatshirt",
+                            Price = 299.99f,
+                            SizeId = 7,
+                            Stock = 400,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 15,
+                            AppUserId = 6,
+                            BrandId = 6,
+                            CategoryId = 7,
+                            ColorId = 11,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsOfferable = true,
+                            IsSold = true,
+                            Name = "Outdoor Kapüşonlu Erkek Sweatshirt",
+                            Price = 269.99f,
+                            SizeId = 1,
+                            Stock = 400,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 16,
+                            AppUserId = 7,
+                            BrandId = 7,
+                            CategoryId = 8,
+                            ColorId = 12,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsOfferable = true,
+                            IsSold = false,
+                            Name = "Tül Kemer Detaylı Kadın Jean",
+                            Price = 349.99f,
+                            SizeId = 1,
+                            Stock = 400,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 17,
+                            AppUserId = 8,
+                            BrandId = 8,
+                            CategoryId = 8,
+                            ColorId = 10,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsOfferable = true,
+                            IsSold = true,
+                            Name = "Cepli Kadın Flare Jean",
+                            Price = 269.99f,
+                            SizeId = 2,
+                            Stock = 400,
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("ECom.Domain.Entities.Product_Order", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ProductId", "OrderId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("Products_Orders");
+                });
+
+            modelBuilder.Entity("ECom.Domain.Entities.Size", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sizes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "XS",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "S",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "M",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "L",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "XL",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "2XL",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreatedDate = new DateTime(2022, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "3XL",
+                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -253,9 +1285,8 @@ namespace ECom.Persistence.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -264,7 +1295,7 @@ namespace ECom.Persistence.Migrations
                     b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -278,9 +1309,8 @@ namespace ECom.Persistence.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -289,7 +1319,7 @@ namespace ECom.Persistence.Migrations
                     b.ToTable("AspNetUserClaims", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
                     b.Property<string>("LoginProvider")
                         .HasColumnType("nvarchar(450)");
@@ -300,9 +1330,8 @@ namespace ECom.Persistence.Migrations
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -311,13 +1340,13 @@ namespace ECom.Persistence.Migrations
                     b.ToTable("AspNetUserLogins", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -326,10 +1355,10 @@ namespace ECom.Persistence.Migrations
                     b.ToTable("AspNetUserRoles", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("LoginProvider")
                         .HasColumnType("nvarchar(450)");
@@ -345,28 +1374,13 @@ namespace ECom.Persistence.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("OrderProduct", b =>
-                {
-                    b.Property<Guid>("OrdersId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ProductsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("OrdersId", "ProductsId");
-
-                    b.HasIndex("ProductsId");
-
-                    b.ToTable("OrderProduct");
-                });
-
             modelBuilder.Entity("ProductProductImageFile", b =>
                 {
-                    b.Property<Guid>("ProductImageFilesId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("ProductImageFilesId")
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("ProductsId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("ProductsId")
+                        .HasColumnType("int");
 
                     b.HasKey("ProductImageFilesId", "ProductsId");
 
@@ -375,115 +1389,277 @@ namespace ECom.Persistence.Migrations
                     b.ToTable("ProductProductImageFile");
                 });
 
-            modelBuilder.Entity("ECom.Domain.InvoiceFile", b =>
+            modelBuilder.Entity("ECom.Domain.Entities.InvoiceFile", b =>
                 {
-                    b.HasBaseType("ECom.Domain.File");
+                    b.HasBaseType("ECom.Domain.Entities.Common.BaseFile");
+
+                    b.Property<decimal>("Price")
+                        .HasPrecision(14, 2)
+                        .HasColumnType("decimal(14,2)");
 
                     b.HasDiscriminator().HasValue("InvoiceFile");
                 });
 
-            modelBuilder.Entity("ECom.Domain.ProductImageFile", b =>
+            modelBuilder.Entity("ECom.Domain.Entities.ProductImageFile", b =>
                 {
-                    b.HasBaseType("ECom.Domain.File");
+                    b.HasBaseType("ECom.Domain.Entities.Common.BaseFile");
+
+                    b.Property<bool>("Showcase")
+                        .HasColumnType("bit");
 
                     b.HasDiscriminator().HasValue("ProductImageFile");
                 });
 
-            modelBuilder.Entity("ECom.Domain.Order", b =>
+            modelBuilder.Entity("ECom.Domain.Entities.Basket", b =>
                 {
-                    b.HasOne("ECom.Domain.Customer", "Customer")
+                    b.HasOne("ECom.Domain.Entities.Identity.AppUser", "AppUser")
+                        .WithMany("Baskets")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("ECom.Domain.Entities.BasketItem", b =>
+                {
+                    b.HasOne("ECom.Domain.Entities.Basket", "Basket")
+                        .WithMany("BasketItems")
+                        .HasForeignKey("BasketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ECom.Domain.Entities.Product", "Product")
+                        .WithMany("BasketItems")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Basket");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("ECom.Domain.Entities.Offer", b =>
+                {
+                    b.HasOne("ECom.Domain.Entities.Identity.AppUser", "AppUser")
+                        .WithMany("Offers")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ECom.Domain.Entities.Product", "Product")
+                        .WithMany("Offers")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("ECom.Domain.Entities.Order", b =>
+                {
+                    b.HasOne("ECom.Domain.Entities.Customer", "Customer")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ECom.Domain.Entities.Basket", "Basket")
+                        .WithOne("Order")
+                        .HasForeignKey("ECom.Domain.Entities.Order", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Basket");
+
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("ECom.Domain.Entities.Product", b =>
                 {
-                    b.HasOne("ECom.Domain.Identity.AppRole", null)
+                    b.HasOne("ECom.Domain.Entities.Identity.AppUser", "AppUser")
+                        .WithMany("Products")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ECom.Domain.Entities.Brand", "Brand")
+                        .WithMany("Products")
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ECom.Domain.Entities.Category", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ECom.Domain.Entities.Color", "Color")
+                        .WithMany("Products")
+                        .HasForeignKey("ColorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ECom.Domain.Entities.Size", "Size")
+                        .WithMany("Products")
+                        .HasForeignKey("SizeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Brand");
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Color");
+
+                    b.Navigation("Size");
+                });
+
+            modelBuilder.Entity("ECom.Domain.Entities.Product_Order", b =>
+                {
+                    b.HasOne("ECom.Domain.Entities.Order", "Order")
+                        .WithMany("Products_Orders")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("ECom.Domain.Entities.Product", "Product")
+                        .WithMany("Products_Orders")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
+                {
+                    b.HasOne("ECom.Domain.Entities.Identity.AppRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
                 {
-                    b.HasOne("ECom.Domain.Identity.AppUser", null)
+                    b.HasOne("ECom.Domain.Entities.Identity.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
-                    b.HasOne("ECom.Domain.Identity.AppUser", null)
+                    b.HasOne("ECom.Domain.Entities.Identity.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
                 {
-                    b.HasOne("ECom.Domain.Identity.AppRole", null)
+                    b.HasOne("ECom.Domain.Entities.Identity.AppRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ECom.Domain.Identity.AppUser", null)
+                    b.HasOne("ECom.Domain.Entities.Identity.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
-                    b.HasOne("ECom.Domain.Identity.AppUser", null)
+                    b.HasOne("ECom.Domain.Entities.Identity.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("OrderProduct", b =>
-                {
-                    b.HasOne("ECom.Domain.Order", null)
-                        .WithMany()
-                        .HasForeignKey("OrdersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ECom.Domain.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("ProductProductImageFile", b =>
                 {
-                    b.HasOne("ECom.Domain.ProductImageFile", null)
+                    b.HasOne("ECom.Domain.Entities.ProductImageFile", null)
                         .WithMany()
                         .HasForeignKey("ProductImageFilesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ECom.Domain.Product", null)
+                    b.HasOne("ECom.Domain.Entities.Product", null)
                         .WithMany()
                         .HasForeignKey("ProductsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ECom.Domain.Customer", b =>
+            modelBuilder.Entity("ECom.Domain.Entities.Basket", b =>
+                {
+                    b.Navigation("BasketItems");
+
+                    b.Navigation("Order")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ECom.Domain.Entities.Brand", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("ECom.Domain.Entities.Category", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("ECom.Domain.Entities.Color", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("ECom.Domain.Entities.Customer", b =>
                 {
                     b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("ECom.Domain.Entities.Identity.AppUser", b =>
+                {
+                    b.Navigation("Baskets");
+
+                    b.Navigation("Offers");
+
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("ECom.Domain.Entities.Order", b =>
+                {
+                    b.Navigation("Products_Orders");
+                });
+
+            modelBuilder.Entity("ECom.Domain.Entities.Product", b =>
+                {
+                    b.Navigation("BasketItems");
+
+                    b.Navigation("Offers");
+
+                    b.Navigation("Products_Orders");
+                });
+
+            modelBuilder.Entity("ECom.Domain.Entities.Size", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

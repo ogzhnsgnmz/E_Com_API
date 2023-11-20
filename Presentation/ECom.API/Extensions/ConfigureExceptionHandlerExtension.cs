@@ -3,34 +3,33 @@ using System.Net.Mime;
 using System.Net;
 using System.Text.Json;
 
-namespace ECom.API.Extensions
+namespace ECom.API.Extensions;
+
+public static class ConfigureExceptionHandlerExtension
 {
-    public static class ConfigureExceptionHandlerExtension
+    public static void ConfigureExceptionHandler<T>(this WebApplication application, ILogger<T> logger)
     {
-        public static void ConfigureExceptionHandler<T>(this WebApplication application, ILogger<T> logger)
+        application.UseExceptionHandler(builder =>
         {
-            application.UseExceptionHandler(builder =>
+            builder.Run(async context =>
             {
-                builder.Run(async context =>
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                context.Response.ContentType = MediaTypeNames.Application.Json;
+
+                var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
+                if (contextFeature != null)
                 {
-                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                    context.Response.ContentType = MediaTypeNames.Application.Json;
+                    logger.LogError(contextFeature.Error.Message);
 
-                    var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
-                    if (contextFeature != null)
+                    await context.Response.WriteAsync(JsonSerializer.Serialize(new
                     {
-                        logger.LogError(contextFeature.Error.Message);
+                        StatusCode = context.Response.StatusCode,
+                        Message = contextFeature.Error.Message,
+                        Title = "Hata alındı!"
+                    }));
+                }
 
-                        await context.Response.WriteAsync(JsonSerializer.Serialize(new
-                        {
-                            StatusCode = context.Response.StatusCode,
-                            Message = contextFeature.Error.Message,
-                            Title = "Hata alındı!"
-                        }));
-                    }
-
-                });
             });
-        }
+        });
     }
 }

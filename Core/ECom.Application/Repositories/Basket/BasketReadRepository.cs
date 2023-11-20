@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ECom.Application.Repositories;
 
-namespace ECom.Application.Repositories.Basket
+namespace ECom.Application.Repositories.Basket;
+
+public interface IBasketReadRepository : IReadRepository<Domain.Entities.Basket>
 {
-    public interface IBasketReadRepository : IReadRepository<Domain.Basket>
-    {
-    }
 }

@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace ECom.Application.Repositories.File;
 
-namespace ECom.Application.Repositories.File
+public interface IFileReadRepository : IReadRepository<Domain.Entities.File>
 {
-    public interface IFileReadRepository : IReadRepository<Domain.File>
-    {
-    }
 }

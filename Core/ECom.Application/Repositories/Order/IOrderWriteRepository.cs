@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace ECom.Application.Repositories.Order;
 
-namespace ECom.Application.Repositories.Order
+public interface IOrderWriteRepository : IWriteRepository<Domain.Entities.Order>
 {
-    public interface IOrderWriteRepository : IWriteRepository<Domain.Order>
-    {
-    }
 }

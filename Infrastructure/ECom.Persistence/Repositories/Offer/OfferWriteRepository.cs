@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Persistence.Repositories.Offer
 {
-    public class OfferWriteRepository : WriteRepository<Domain.Offer>, IOfferWriteRepository
+    public class OfferWriteRepository : WriteRepository<Domain.Entities.Offer>, IOfferWriteRepository
     {
         public OfferWriteRepository(EComDbContext context) : base(context)
         {

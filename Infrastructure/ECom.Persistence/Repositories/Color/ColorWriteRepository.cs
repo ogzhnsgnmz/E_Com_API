@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Persistence.Repositories.Color
 {
-    public class BaseFilesWriteRepository : WriteRepository<Domain.Color>, IColorWriteRepository
+    public class BaseFilesWriteRepository : WriteRepository<Domain.Entities.Color>, IColorWriteRepository
     {
         public BaseFilesWriteRepository(EComDbContext context) : base(context)
         {

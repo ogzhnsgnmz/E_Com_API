@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ECom.Domain.Entities;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
 
-namespace ECom.Persistence.Configurations
+namespace ECom.Persistence.Configurations;
+
+public class OfferConfiguration : IEntityTypeConfiguration<Offer>
 {
-    internal class OfferConfiguration
+    public void Configure(EntityTypeBuilder<Offer> builder)
     {
+        builder.Property(x => x.OfferPrice).IsRequired().HasPrecision(14, 2);
     }
 }

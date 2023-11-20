@@ -1,13 +1,23 @@
 ﻿using ECom.Persistence;
 using ECom.Infrastructure;
 using ECom.Application;
+using ECom.SignalR;
 using ECom.Infrastructure.Services.Storage.Azure;
 using ECom.API.Extensions;
-using Microsoft.AspNetCore.Builder;
 using ECom.API.Configurations.ColumnWriters;
 using Microsoft.AspNetCore.HttpLogging;
-using Microsoft.Extensions.Logging;
 using System.Collections.ObjectModel;
+using Serilog.Core;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Serilog;
+using Serilog.Context;
+using System.Security.Claims;
+using System.Text;
+using ECom.Infrastructure.Helper.Filters;
+using FluentValidation.AspNetCore;
+using Serilog.Sinks.MSSqlServer;
+using ECom.Application.Validators.Products;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,7 +57,7 @@ Logger log = new LoggerConfiguration()
     },
     appConfiguration: null,
     columnOptions: columnOpt)
-    .WriteTo.Seq(builder.Configuration["Seq:ServerURL"])
+    //.WriteTo.Seq(builder.Configuration["Seq:ServerURL"])
     .Enrich.FromLogContext()
     .Enrich.With<CustomUserNameColumn>()
     .MinimumLevel.Information()
@@ -66,7 +76,7 @@ builder.Services.AddHttpLogging(logging =>
 //
 
 builder.Services.AddControllers(options => { options.Filters.Add<ValidationFilter>(); })
-    .AddFluentValidation(config => config.RegisterValidatorsFromAssemblyContaining<CreateCourseValidator>())
+    .AddFluentValidation(config => config.RegisterValidatorsFromAssemblyContaining<CreateProductValidator>())
     .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
 
 builder.Services.AddEndpointsApiExplorer();
@@ -78,10 +88,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     {
         options.TokenValidationParameters = new()
         {
-            ValidateAudience = true, //Oluþturulacak token deðerini kimlerin/hangi originlerin/sitelerin kullanýcý belirlediðimiz deðerdir. -> www.bilmemne.com
-            ValidateIssuer = true, //Oluþturulacak token deðerini kimin daðýttýný ifade edeceðimiz alandýr. -> www.myapi.com
-            ValidateLifetime = true, //Oluþturulan token deðerinin süresini kontrol edecek olan doðrulamadýr.
-            ValidateIssuerSigningKey = true, //Üretilecek token deðerinin uygulamamýza ait bir deðer olduðunu ifade eden suciry key verisinin doðrulanmasýdýr.
+            ValidateAudience = true, //Oluşturulacak token deðerini kimlerin/hangi originlerin/sitelerin kullanıcı belirlediðimiz deðerdir. -> www.bilmemne.com
+            ValidateIssuer = true, //Oluşturulacak token deðerini kimin dağıttığını ifade edeceğimiz alandır. -> www.myapi.com
+            ValidateLifetime = true, //Oluşturulan token değerinin süresini kontrol edecek olan doğrulamadık.
+            ValidateIssuerSigningKey = true, //Üretilecek token değerinin uygulamamıza ait bir değer olduğunu ifade eden security key verisinin doğrulanmasıdır.
 
             ValidAudience = builder.Configuration["Token:Audience"],
             ValidIssuer = builder.Configuration["Token:Issuer"],

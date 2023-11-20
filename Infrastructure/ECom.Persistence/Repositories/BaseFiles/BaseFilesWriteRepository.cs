@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Persistence.Repositories.BaseFiles
 {
-    public class BaseFilesWriteRepository : WriteRepository<Domain.Customer>, IBaseFilesWriteRepository
+    public class BaseFilesWriteRepository : WriteRepository<Domain.Entities.Customer>, IBaseFilesWriteRepository
     {
         public BaseFilesWriteRepository(EComDbContext context) : base(context)
         {

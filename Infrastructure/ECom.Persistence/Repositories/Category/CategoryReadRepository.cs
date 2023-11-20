@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Persistence.Repositories.Category
 {
-    public class CategoryReadRepository : ReadRepository<Domain.Category>, ICategoryReadRepository
+    public class CategoryReadRepository : ReadRepository<Domain.Entities.Category>, ICategoryReadRepository
     {
         public CategoryReadRepository(EComDbContext context) : base(context)
         {

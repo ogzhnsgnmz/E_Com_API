@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Persistence.Repositories.Product
 {
-    public class ProductWriteRepository : WriteRepository<Domain.Product>, IProductWriteRepository
+    public class ProductWriteRepository : WriteRepository<Domain.Entities.Product>, IProductWriteRepository
     {
         public ProductWriteRepository(EComDbContext context) : base(context)
         {

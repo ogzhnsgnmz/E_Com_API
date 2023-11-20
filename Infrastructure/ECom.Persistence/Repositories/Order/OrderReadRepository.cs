@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Persistence.Repositories.Order
 {
-    public class OrderReadRepository : ReadRepository<Domain.Order>, IOrderReadRepository
+    public class OrderReadRepository : ReadRepository<Domain.Entities.Order>, IOrderReadRepository
     {
         public OrderReadRepository(EComDbContext context) : base(context)
         {

@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ECom.Domain.Entities.Identity;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
 
-namespace ECom.Persistence.Configurations
+namespace ECom.Persistence.Configurations;
+
+public class AppRoleConfiguration : IEntityTypeConfiguration<AppRole>
 {
-    internal class AppRoleConfiguration
+    public void Configure(EntityTypeBuilder<AppRole> builder)
     {
+        #region SeedData
+
+        var role1 = new AppRole() { Id = 1, Name = "Admin", NormalizedName = "ADMIN" };
+        var role2 = new AppRole() { Id = 2, Name = "User", NormalizedName = "USER" };
+
+        builder.HasData(role1, role2);
+
+        #endregion
     }
 }

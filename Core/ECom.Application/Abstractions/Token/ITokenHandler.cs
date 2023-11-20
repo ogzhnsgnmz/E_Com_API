@@ -1,15 +1,9 @@
-﻿using ECom.Domain.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ECom.Domain.Entities.Identity;
 
-namespace ECom.Application.Abstractions.Token
+namespace ECom.Application.Abstractions.Token;
+
+public interface ITokenHandler
 {
-    public interface ITokenHandler
-    {
-        DTOs.Token CreateAccessToken(int second, AppUser appUser);
-        string CreateRefreshToken();
-    }
+    DTOs.Token CreateAccessToken(int second, AppUser appUser);
+    string CreateRefreshToken();
 }

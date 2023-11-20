@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ECom.Persistence.Services
+namespace ECom.Persistence.Services;
+
+public class BasketService
 {
-    public class BasketService
-    {
-    }
 }

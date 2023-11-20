@@ -1,15 +1,13 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System.Net.Http;
-using MediatR;
+﻿using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace ECom.Application
+namespace ECom.Application;
+
+public static class ServiceRegistration
 {
-    public static class ServiceRegistration
+    public static void AddApplicationServices(this IServiceCollection collection)
     {
-        public static void AddApplicationServices(this IServiceCollection collection)
-        {
-            collection.AddMediatR(typeof(ServiceRegistration));
-            collection.AddHttpClient();
-        }
+        collection.AddMediatR(typeof(ServiceRegistration));
+        collection.AddHttpClient();
     }
 }

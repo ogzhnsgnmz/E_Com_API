@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Persistence.Repositories.Size
 {
-    public interface ISizeReadRepository : IReadRepository<Domain.Size>
+    public interface ISizeReadRepository : IReadRepository<Domain.Entities.Size>
     {
     }
 }

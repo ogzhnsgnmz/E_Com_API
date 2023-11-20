@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Persistence.Repositories.BasketItem
 {
-    public class BasketItemWriteRepository : WriteRepository<Domain.BasketItem>, IBasketItemWriteRepository
+    public class BasketItemWriteRepository : WriteRepository<Domain.Entities.BasketItem>, IBasketItemWriteRepository
     {
         public BasketItemWriteRepository(EComDbContext context) : base(context)
         {

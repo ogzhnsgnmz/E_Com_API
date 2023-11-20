@@ -1,6 +1,5 @@
-﻿namespace OgrSorAPI.API.Controllers
+﻿namespace OgrSorAPI.API.Controllers;
+
+public class RefreshTokenLoginRequest
 {
-    public class RefreshTokenLoginRequest
-    {
-    }
 }

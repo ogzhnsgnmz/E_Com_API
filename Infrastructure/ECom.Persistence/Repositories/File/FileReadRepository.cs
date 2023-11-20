@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Persistence.Repositories.File
 {
-    public class FileReadRepository : ReadRepository<Domain.File>, IFileReadRepository
+    public class FileReadRepository : ReadRepository<Domain.Entities.File>, IFileReadRepository
     {
         public FileReadRepository(EComDbContext context) : base(context)
         {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Persistence.Repositories.Offer
 {
-    public class OfferReadRepository : ReadRepository<Domain.Offer>, IOfferReadRepository
+    public class OfferReadRepository : ReadRepository<Domain.Entities.Offer>, IOfferReadRepository
     {
         public OfferReadRepository(EComDbContext context) : base(context)
         {

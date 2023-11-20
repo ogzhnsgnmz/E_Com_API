@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ECom.Domain.Entities;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
 
-namespace ECom.Persistence.Configurations
+namespace ECom.Persistence.Configurations;
+
+public class InvoiceFileConfiguration : IEntityTypeConfiguration<InvoiceFile>
 {
-    internal class InvoiceFileConfiguration
+    public void Configure(EntityTypeBuilder<InvoiceFile> builder)
     {
+        builder.Property(x => x.Price).IsRequired().HasPrecision(14, 2);
     }
 }

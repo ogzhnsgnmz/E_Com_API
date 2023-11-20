@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace ECom.Application.Pipelines.Validation;
 
-namespace ECom.Application.Pipelines.Validation
+public class RequestValdiaitonBehaivor
 {
-    public class RequestValdiaitonBehaivor
-    {
 
-    }
 }

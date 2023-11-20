@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Persistence.Repositories.InvoiceFile
 {
-    public class InvoiceFileReadRepository : ReadRepository<Domain.InvoiceFile>, IInvoiceFileReadRepository
+    public class InvoiceFileReadRepository : ReadRepository<Domain.Entities.InvoiceFile>, IInvoiceFileReadRepository
     {
         public InvoiceFileReadRepository(EComDbContext context) : base(context)
         {

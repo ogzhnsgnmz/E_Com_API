@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Persistence.Repositories.Brand
 {
-    public class BrandReadRepository : ReadRepository<Domain.Brand>, IBrandReadRepository
+    public class BrandReadRepository : ReadRepository<Domain.Entities.Brand>, IBrandReadRepository
     {
         public BrandReadRepository(EComDbContext context) : base(context)
         {

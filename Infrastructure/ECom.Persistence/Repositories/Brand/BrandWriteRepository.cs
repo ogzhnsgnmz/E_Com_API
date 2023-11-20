@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Persistence.Repositories.Brand
 {
-    public class BrandWriteRepository : WriteRepository<Domain.Brand>, IBrandWriteRepository
+    public class BrandWriteRepository : WriteRepository<Domain.Entities.Brand>, IBrandWriteRepository
     {
         public BrandWriteRepository(EComDbContext context) : base(context)
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECom.Persistence.Repositories.Category
 {
-    public class CategoryWriteRepository : WriteRepository<Domain.Category>, ICategoryWriteRepository
+    public class CategoryWriteRepository : WriteRepository<Domain.Entities.Category>, ICategoryWriteRepository
     {
         public CategoryWriteRepository(EComDbContext context) : base(context)
         {
