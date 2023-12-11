@@ -21,8 +21,7 @@ using ECom.Application.Validators.Products;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//
-
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddPersistenceServices();
 builder.Services.AddInfrastructureServices();
 builder.Services.AddApplicationServices();
@@ -118,8 +117,6 @@ app.UseStaticFiles();
 app.UseSerilogRequestLogging();
 
 app.UseHttpLogging();
-
-//
 
 app.UseCors();
 

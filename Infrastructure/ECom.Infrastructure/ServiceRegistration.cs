@@ -17,9 +17,9 @@ public static class ServiceRegistration
         serviceCollection.AddScoped<IStorageService, StorageService>();
         serviceCollection.AddScoped<ITokenHandler, TokenHandler>();
     }
-    public static void AddStorage<T>(this IServiceCollection serviceCollection) where T : Storage, IStorage
+    public static void AddStorage<T>(this IServiceCollection serviceCollection) where T : BaseStorage, IBaseStorage
     {
-        serviceCollection.AddScoped<IStorage, T>();
+        serviceCollection.AddScoped<IBaseStorage, T>();
     }
     public static void AddStorage(this IServiceCollection serviceCollection, StorageType storageType)
     {
@@ -29,7 +29,7 @@ public static class ServiceRegistration
                 //serviceCollection.AddScoped<IStorage, LocalStorage>();
                 break;
             case StorageType.Azure:
-                serviceCollection.AddScoped<IStorage, AzureStorage>();
+                serviceCollection.AddScoped<IBaseStorage, AzureStorage>();
                 break;
             default:
                 //serviceCollection.AddScoped<IStorage, LocalStorage>();

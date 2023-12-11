@@ -1,5 +1,6 @@
 ﻿using ECom.Application.Repositories.Product;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace ECom.Application.Features.Queries.Product.GetAllProduct;
@@ -19,7 +20,7 @@ public class GetAllProductQueryHandler : IRequestHandler<GetAllProductQueryReque
     public async Task<GetAllProductQueryResponse> Handle(GetAllProductQueryRequest request, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Get all Products");
-        var totalCount = _ProductReadRepository.GetAll(false).Count();
+        var totalProductCount = _ProductReadRepository.GetAll(false).Count();
         var Products = _ProductReadRepository.GetAll(false)
             .Skip(request.Page * request.Size)
             .Take(request.Size)
@@ -32,12 +33,12 @@ public class GetAllProductQueryHandler : IRequestHandler<GetAllProductQueryReque
                 p.CreatedDate,
                 p.UpdatedDate,
                 p.ProductImageFiles
-            });
+            }).ToList();
 
         return new()
         {
             Products = Products,
-            TotalProductCount = totalCount
+            TotalProductCount = totalProductCount
         };
     }
 }

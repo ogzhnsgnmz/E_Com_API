@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace ECom.Infrastructure.Services.Storage.Azure;
 
-public class AzureStorage : Storage, IAzureStorage
+public class AzureStorage : BaseStorage, IAzureStorage
 {
     readonly BlobServiceClient _blobServiceClient;
     BlobContainerClient _blobContainerClient;

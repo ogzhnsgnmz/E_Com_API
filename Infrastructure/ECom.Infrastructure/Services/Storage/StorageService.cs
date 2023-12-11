@@ -5,9 +5,9 @@ namespace ECom.Infrastructure.Services.Storage;
 
 public class StorageService : IStorageService
 {
-    private readonly IStorage storage;
+    private readonly IBaseStorage storage;
 
-    public StorageService(IStorage storage)
+    public StorageService(IBaseStorage storage)
     {
         this.storage = storage;
     }

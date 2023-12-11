@@ -12,14 +12,16 @@ public class UploadProductImageCommandHandler : IRequestHandler<UploadProductIma
     readonly IProductImageFileWriteRepository _ProductImageFileWriteRepository;
     readonly IStorageService _storageService;
 
-    public UploadProductImageCommandHandler(IProductReadRepository ProductReadRepository)
+    public UploadProductImageCommandHandler(IProductReadRepository ProductReadRepository, IStorageService storageService, IProductImageFileWriteRepository productImageFileWriteRepository)
     {
         _ProductReadRepository = ProductReadRepository;
+        _storageService = storageService;
+        _ProductImageFileWriteRepository = productImageFileWriteRepository;
     }
 
     public async Task<UploadProductImageCommandResponse> Handle(UploadProductImageCommandRequest request, CancellationToken cancellationToken)
     {
-        List<(string fileName, string pathOrContainerName)> result = await _storageService.UploadAsync("photo-images", request.Files);
+        List<(string fileName, string pathOrContainerName)> result = await _storageService.UploadAsync("product-images", request.Files);
 
         Domain.Entities.Product Product = await _ProductReadRepository.GetByIdAsync(request.Id);
 

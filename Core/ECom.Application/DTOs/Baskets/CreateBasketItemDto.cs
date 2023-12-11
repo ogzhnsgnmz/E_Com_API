@@ -2,6 +2,6 @@
 
 public class CreateBasketItemDto
 {
-    public int ProductId { get; set; }
+    public string ProductId { get; set; }
     public int Quantity { get; set; }
 }

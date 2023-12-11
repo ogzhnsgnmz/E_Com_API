@@ -16,6 +16,9 @@ using ECom.Application.Abstractions.Services;
 using ECom.Application.Abstractions.Services.Authentication;
 using ECom.Persistence.Services;
 using ECom.Domain.Entities.Identity;
+using ECom.Persistence.Repositories.Basket;
+using ECom.Application.Repositories.Basket;
+using ECom.Persistence.Repositories.BasketItem;
 
 namespace ECom.Persistence;
 
@@ -44,10 +47,15 @@ public static class ServiceRegistration
         services.AddScoped<IProductWriteRepository, ProductWriteRepository>();
         services.AddScoped<IProductImageFileReadRepository, ProductImageFileReadRepository>();
         services.AddScoped<IProductImageFileWriteRepository, ProductImageFileWriteRepository>();
+        services.AddScoped<IBasketReadRepository, BasketReadRepository>();
+        services.AddScoped<IBasketWriteRepository, BasketWriteRepository>();
+        services.AddScoped<IBasketItemReadRepository, BasketItemReadRepository>();
+        services.AddScoped<IBasketItemWriteRepository, BasketItemWriteRepository>();
 
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IExternalAuthentication, AuthService>();
         services.AddScoped<IInternalAuthentication, AuthService>();
+        services.AddScoped<IBasketService, BasketService>();
     }
 }

@@ -2,7 +2,7 @@
 
 namespace ECom.Infrastructure.Services.Storage;
 
-public class Storage
+public class BaseStorage
 {
     protected delegate bool HasFile(string pathOrContainerName, string fileName);
     protected async Task<string> FileRenameAsync(string pathOrContainerName, string fileName, HasFile hasFileMethod, bool first = true)

@@ -6,7 +6,7 @@ namespace ECom.SignalR.HubServices;
 
 public class ProductHubService : IProductHubService
 {
-    private readonly IHubContext<ProductHub> _hubContext;
+    readonly IHubContext<ProductHub> _hubContext;
 
     public ProductHubService(IHubContext<ProductHub> hubContext)
     {

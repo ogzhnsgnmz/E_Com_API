@@ -2,7 +2,7 @@
 
 namespace ECom.Application.Abstractions.Storage;
 
-public interface IStorage
+public interface IBaseStorage
 {
     Task<List<(string fileName, string pathOrContainerName)>> UploadAsync(string pathOrContainerName, IFormFileCollection files);
     Task DeleteAsync(string pathOrContainerName, string fileName);
