@@ -9,11 +9,6 @@ using ECom.Persistence.Repositories.BasketItem;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ECom.Persistence.Services;
 
@@ -85,14 +80,14 @@ public class BasketService : IBasketService
         if (basket != null)
         {
             BasketItem _basketItem = await _basketItemReadRepository.GetSingleAsync(bi => bi.BasketId == basket.Id
-            && bi.ProductId == int.Parse(basketItem.ProductId));
+            && bi.ProductId == Guid.Parse(basketItem.ProductId));
             if (_basketItem != null)
                 _basketItem.Quantity++;
             else
                 await _basketItemWriteRepository.AddAsync(new()
                 {
                     BasketId = basket.Id,
-                    ProductId = int.Parse(basketItem.ProductId),
+                    ProductId = Guid.Parse(basketItem.ProductId),
                     Quantity = basketItem.Quantity,
                 });
             await _basketItemWriteRepository.SaveAsync();
@@ -127,6 +122,15 @@ public class BasketService : IBasketService
         {
             _basketItem.Quantity = basketItem.Quantity;
             await _basketItemWriteRepository.SaveAsync();
+        }
+    }
+
+    public Basket? GetUserActiveBasket
+    {
+        get
+        {
+            Basket? basket = ContextUser().Result;
+            return basket;
         }
     }
 }

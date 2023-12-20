@@ -7,10 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Features\Command\Order\RemoveOrder\**" />
+    <Compile Remove="Features\Command\Order\UpdateOrder\**" />
+    <EmbeddedResource Remove="Features\Command\Order\RemoveOrder\**" />
+    <EmbeddedResource Remove="Features\Command\Order\UpdateOrder\**" />
+    <None Remove="Features\Command\Order\RemoveOrder\**" />
+    <None Remove="Features\Command\Order\UpdateOrder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.8.0" />
     <PackageReference Include="MediatR" Version="11.1.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.13" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
@@ -26,14 +36,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\Queries\Order\" />
     <Folder Include="Repositories\BaseFiles\" />
     <Folder Include="Repositories\Basket\" />
     <Folder Include="Repositories\BasketItem\" />
-    <Folder Include="Repositories\Brand\" />
-    <Folder Include="Repositories\Category\" />
-    <Folder Include="Repositories\Color\" />
-    <Folder Include="Repositories\Size\" />
-    <Folder Include="Repositories\Offer\" />
   </ItemGroup>
 
 </Project>

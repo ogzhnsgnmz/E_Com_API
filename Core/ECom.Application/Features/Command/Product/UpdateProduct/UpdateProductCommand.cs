@@ -23,8 +23,6 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommandR
         Product.Name = request.Name;
         Product.Stock = request.Stock;
         Product.Price = request.Price;
-        Product.IsOfferable = request.IsOfferable;
-        Product.IsSold = Product.IsSold;
         await _ProductWriteRepository.SaveAsync();
         _logger.LogInformation("Ders güncellendi");
         return new();
@@ -35,7 +33,7 @@ public class UpdateProductCommandRequest : IRequest<UpdateProductCommandResponse
     public string Id { get; set; }
     public string Name { get; set; }
     public int Stock { get; set; }
-    public float Price { get; set; }
+    public decimal Price { get; set; }
     public bool IsOfferable { get; set; }
     public bool IsSold { get; set; }
 }

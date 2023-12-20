@@ -18,8 +18,7 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommandRequest
         CreateUserResponse response = await _userService.CreateAsync(new()
         {
             Email = request.Email,
-            FirstName = request.FirstName,
-            LastName = request.LastName,
+            NameSurname = request.NameSurname,
             Password = request.Password,
             PasswordConfirm = request.PasswordConfirm,
             Username = request.Username,
@@ -34,8 +33,7 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommandRequest
 }
 public class CreateUserCommandRequest : IRequest<CreateUserCommandResponse>
 {
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
+    public string NameSurname { get; set; }
     public string Username { get; set; }
     public string Email { get; set; }
     public string Password { get; set; }

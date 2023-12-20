@@ -25,13 +25,6 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommandR
             Name = request.Name,
             Stock = request.Stock,
             Price = request.Price,
-            IsOfferable = true,
-            IsSold = false,
-            CategoryId = 1,
-            BrandId = 1,
-            ColorId = 1,
-            SizeId = 1,
-            AppUserId = 1
         });
 
         await _ProductWriteRepository.SaveAsync();
@@ -45,7 +38,7 @@ public class CreateProductCommandRequest : IRequest<CreateProductCommandResponse
 {
     public string Name { get; set; }
     public int Stock { get; set; }
-    public float Price { get; set; }
+    public decimal Price { get; set; }
 }
 public class CreateProductCommandResponse
 {

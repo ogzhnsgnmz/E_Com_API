@@ -1,0 +1,39 @@
+﻿using ECom.Application.Abstractions.Services;
+using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ECom.Application.Features.Command.AuthorizationEndpoint.AssignRoleEndpoint
+{
+    public class AssignRoleEndpointCommandHandler : IRequestHandler<AssignRoleEndpointCommandRequest, AssignRoleEndpointCommandResponse>
+    {
+        readonly IAuthorizationEndpointService _authorizationEndpointService;
+
+        public AssignRoleEndpointCommandHandler(IAuthorizationEndpointService authorizationEndpointService)
+        {
+            _authorizationEndpointService = authorizationEndpointService;
+        }
+
+        public async Task<AssignRoleEndpointCommandResponse> Handle(AssignRoleEndpointCommandRequest request, CancellationToken cancellationToken)
+        {
+            await _authorizationEndpointService.AssignRoleEndpointAsync(request.Roles, request.Menu, request.Code, request.Type);
+            return new()
+            {
+
+            };
+        }
+    }
+    public class AssignRoleEndpointCommandRequest : IRequest<AssignRoleEndpointCommandResponse>
+    {
+        public string[] Roles { get; set; }
+        public string Code { get; set; }
+        public string Menu { get; set; }
+        public Type? Type { get; set; }
+    }
+    public class AssignRoleEndpointCommandResponse
+    {
+    }
+}

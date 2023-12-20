@@ -1,15 +1,19 @@
 ﻿using ECom.Domain.Entities.Common;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ECom.Domain.Entities;
-
-public class File : BaseEntity
+namespace ECom.Domain.Entities
 {
-    public string FileName { get; set; }
-    public string Path { get; set; }
-    public decimal Price { get; set; }
-    public string storage { get; set; }
-    public string Showcase { get; set; }
-    [NotMapped]
-    public override DateTime UpdatedDate { get => base.UpdatedDate; set => base.UpdatedDate = value; }
+    public class File : BaseEntity
+    {
+        public string FileName { get; set; }
+        public string Path { get; set; }
+        public string Storage { get; set; }
+        [NotMapped]
+        public override DateTime UpdateDate { get => base.UpdateDate; set => base.UpdateDate = value; }
+    }
 }

@@ -30,8 +30,8 @@ public class GetAllProductQueryHandler : IRequestHandler<GetAllProductQueryReque
                 p.Name,
                 p.Stock,
                 p.Price,
-                p.CreatedDate,
-                p.UpdatedDate,
+                p.CreateDate,
+                p.UpdateDate,
                 p.ProductImageFiles
             }).ToList();
 

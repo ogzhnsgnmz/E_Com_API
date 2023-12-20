@@ -2,7 +2,7 @@
 
 namespace ECom.Domain.Entities;
 
-public class ProductImageFile : BaseFile
+public class ProductImageFile : File
 {
     public bool Showcase { get; set; }
     public ICollection<Product> Products { get; set; }

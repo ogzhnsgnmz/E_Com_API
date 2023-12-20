@@ -1,5 +1,12 @@
-﻿namespace ECom.Application.Repositories.File;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public interface IFileWriteRepository : IWriteRepository<Domain.Entities.File>
+namespace ECom.Application.Repositories.File
 {
+    public interface IFileWriteRepository : IWriteRepository<ECom.Domain.Entities.File>
+    {
+    }
 }

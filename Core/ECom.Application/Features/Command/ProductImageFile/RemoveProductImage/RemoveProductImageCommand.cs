@@ -17,9 +17,9 @@ public class RemoveProductImageCommandHandler : IRequestHandler<RemoveProductIma
 
     public async Task<RemoveProductImageCommandResponse> Handle(RemoveProductImageCommandRequest request, CancellationToken cancellationToken)
     {
-        Domain.Entities.Product? Product = await _ProductReadRepository.Table.Include(p => p.ProductImageFiles).FirstOrDefaultAsync(p => p.Id == int.Parse(request.Id));
+        Domain.Entities.Product? Product = await _ProductReadRepository.Table.Include(p => p.ProductImageFiles).FirstOrDefaultAsync(p => p.Id == Guid.Parse(request.Id));
 
-        Domain.Entities.ProductImageFile? ProductImageFile = Product?.ProductImageFiles.FirstOrDefault(p => p.Id == int.Parse(request.ImageId));
+        Domain.Entities.ProductImageFile? ProductImageFile = Product?.ProductImageFiles.FirstOrDefault(p => p.Id == Guid.Parse(request.ImageId));
 
         if (ProductImageFile != null)
             Product?.ProductImageFiles.Remove(ProductImageFile);

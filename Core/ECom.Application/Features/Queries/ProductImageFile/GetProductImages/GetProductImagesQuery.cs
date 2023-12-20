@@ -18,7 +18,7 @@ public class GetProductImagesQueryHandler : IRequestHandler<GetProductImagesQuer
 
     public async Task<List<GetProductImagesQueryResponse>> Handle(GetProductImagesQueryRequest request, CancellationToken cancellationToken)
     {
-        Domain.Entities.Product? Product = await _ProductReadRepository.Table.Include(p => p.ProductImageFiles).FirstOrDefaultAsync(p => p.Id == int.Parse(request.Id));
+        Domain.Entities.Product? Product = await _ProductReadRepository.Table.Include(p => p.ProductImageFiles).FirstOrDefaultAsync(p => p.Id == Guid.Parse(request.Id));
 
         return Product?.ProductImageFiles.Select(p => new GetProductImagesQueryResponse
         {
@@ -34,7 +34,7 @@ public class GetProductImagesQueryRequest : IRequest<List<GetProductImagesQueryR
 }
 public class GetProductImagesQueryResponse
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public string Path { get; set; }
     public string FileName { get; set; }
 }

@@ -1,4 +1,7 @@
-﻿using ECom.Application.Features.Command.Product.CreateProduct;
+﻿using ECom.Application.Consts;
+using ECom.Application.CustomAttributes;
+using ECom.Application.Enums;
+using ECom.Application.Features.Command.Product.CreateProduct;
 using ECom.Application.Features.Command.Product.RemoveProduct;
 using ECom.Application.Features.Command.Product.UpdateProduct;
 using ECom.Application.Features.Command.ProductImageFile.ChangeShowcaseImage;
@@ -36,6 +39,7 @@ public class ProductsController : ControllerBase
 
     [HttpPost]
     [Authorize(AuthenticationSchemes = "Admin")]
+    [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, ActionType = ActionType.Writing, Definition = "Create Product")]
     public async Task<IActionResult> Post(CreateProductCommandRequest createProductCommandRequest)
     {
         CreateProductCommandResponse response = await _mediator.Send(createProductCommandRequest);
@@ -44,16 +48,19 @@ public class ProductsController : ControllerBase
 
     [HttpPut]
     [Authorize(AuthenticationSchemes = "Admin")]
+    [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, ActionType = ActionType.Updating, Definition = "Update Product")]
     public async Task<IActionResult> Put([FromBody] UpdateProductCommandRequest updateProductCommandRequest)
         => Ok(await _mediator.Send(updateProductCommandRequest));
 
     [HttpDelete("{Id}")]
     [Authorize(AuthenticationSchemes = "Admin")]
+    [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, ActionType = ActionType.Deleting, Definition = "Delete Product")]
     public async Task<IActionResult> Delete([FromRoute] RemoveProductCommandRequest removeProductCommandRequest)
         => Ok(await _mediator.Send(removeProductCommandRequest));
 
     [HttpPost("[action]")]
     [Authorize(AuthenticationSchemes = "Admin")]
+    [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, ActionType = ActionType.Writing, Definition = "Upload Product File")]
     public async Task<IActionResult> Upload([FromQuery] UploadProductImageCommandRequest uploadProductImageCommandRequest)
     {
         uploadProductImageCommandRequest.Files = Request.Form.Files;
@@ -63,11 +70,13 @@ public class ProductsController : ControllerBase
 
     [HttpGet("[action]/{id}")]
     [Authorize(AuthenticationSchemes = "Admin")]
+    [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, ActionType = ActionType.Reading, Definition = "Get Product Image")]
     public async Task<IActionResult> GetProductImages([FromRoute] GetProductImagesQueryRequest getProductImagesQueryRequest)
         => Ok(await _mediator.Send(getProductImagesQueryRequest));
 
     [HttpDelete("[action]/{Id}")]
     [Authorize(AuthenticationSchemes = "Admin")]
+    [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, ActionType = ActionType.Deleting, Definition = "Delete Product Image")]
     public async Task<IActionResult> DeleteProductImage([FromRoute] RemoveProductImageCommandRequest removeProductImageCommandRequest,
         [FromQuery] string imageId)
     {
@@ -78,6 +87,7 @@ public class ProductsController : ControllerBase
 
     [HttpGet("[action]")]
     [Authorize(AuthenticationSchemes = "Admin")]
+    [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, ActionType = ActionType.Updating, Definition = "Change Showcase Image")]
     public async Task<IActionResult> ChangeShowCaseImage([FromQuery] ChangeShowcaseImageCommandRequest changeShowcaseImageCommandRequest)
         => Ok(await _mediator.Send(changeShowcaseImageCommandRequest));
 }

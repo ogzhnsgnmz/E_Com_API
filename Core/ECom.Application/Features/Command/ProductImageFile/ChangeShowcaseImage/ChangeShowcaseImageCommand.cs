@@ -24,13 +24,13 @@ public class ChangeShowcaseImageCommandHandler : IRequestHandler<ChangeShowcaseI
             });
 
         var data = await query
-            .FirstOrDefaultAsync(p => p.p.Id == int.Parse(request.ProductId) && p.pif.Showcase);
+            .FirstOrDefaultAsync(p => p.p.Id == Guid.Parse(request.ProductId) && p.pif.Showcase);
 
         if(data != null)
             data.pif.Showcase = false;
 
         var image = await query.
-            FirstOrDefaultAsync(p => p.pif.Id == int.Parse(request.ImageId));
+            FirstOrDefaultAsync(p => p.pif.Id == Guid.Parse(request.ImageId));
         
         if (image != null)
             image.pif.Showcase = true;

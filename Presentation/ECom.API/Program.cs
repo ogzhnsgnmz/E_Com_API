@@ -128,7 +128,7 @@ app.UseAuthorization();
 app.Use(async (context, next) =>
 {
     var username = context.User?.Identity?.IsAuthenticated != null || true ? context.User.Identity.Name : null;
-    LogContext.PushProperty("UserName", username);
+    LogContext.PushProperty("user_name", username);
     await next();
 });
 

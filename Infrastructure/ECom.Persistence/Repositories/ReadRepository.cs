@@ -45,7 +45,7 @@ public class ReadRepository<T> : IReadRepository<T> where T : BaseEntity
         var query = Table.AsQueryable();
         if (!tracking)
             query = Table.AsNoTracking();
-        return await query.FirstOrDefaultAsync(data => data.Id == int.Parse(id));
+        return await query.FirstOrDefaultAsync(data => data.Id == Guid.Parse(id));
     }
     //=> await Table.FirstOrDefaultAsync(data => data.Id == Guid.Parse(id));
     //=> await Table.FindAsync(Guid.Parse(id));

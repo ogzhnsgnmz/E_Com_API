@@ -1,44 +1,32 @@
 ﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using ECom.Domain.Entities;
 using ECom.Domain.Entities.Identity;
 using ECom.Domain.Entities.Common;
-using ECom.Persistence.Configurations;
 
 namespace ECom.Persistence;
 
 
-public class EComDbContext : IdentityDbContext<AppUser, AppRole, int>
+public class EComDbContext : IdentityDbContext<AppUser, AppRole, string>
 {
-    public EComDbContext() { }
     public EComDbContext(DbContextOptions<EComDbContext> options) : base(options) 
     {
     
     }
 
     #region Entities
-
-    public DbSet<BaseFile> BaseFiles { get; set; }
+    public DbSet<Product> Products { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<Customer> Customers { get; set; }
+    public DbSet<ECom.Domain.Entities.File> Files { get; set; }
+    public DbSet<ProductImageFile> ProductImageFiles { get; set; }
+    public DbSet<InvoiceFile> InvoiceFiles { get; set; }
     public DbSet<Basket> Baskets { get; set; }
     public DbSet<BasketItem> BasketItems { get; set; }
-    public DbSet<Brand> Brands { get; set; }
-    public DbSet<Category> Categories { get; set; }
-    public DbSet<Color> Colors { get; set; }
-    public DbSet<Customer> Customers { get; set; }
-    public DbSet<Domain.Entities.File> Files { get; set; }
-    public DbSet<InvoiceFile> InvoiceFiles { get; set; }
-    public DbSet<Offer> Offers { get; set; }
-    public DbSet<Order> Orders { get; set; }
-    public DbSet<Product> Products { get; set; }
-    public DbSet<ProductImageFile> ProductImageFiles { get; set; }
-    public DbSet<Product_Order> Products_Orders { get; set; }
-    public DbSet<Size> Sizes { get; set; }
+    public DbSet<CompletedOrder> CompletedOrders { get; set; }
+    public DbSet<Menu> Menus { get; set; }
+    public DbSet<Endpoint> Endpoints { get; set; }
 
     #endregion
 
@@ -52,8 +40,8 @@ public class EComDbContext : IdentityDbContext<AppUser, AppRole, int>
         {
             _ = data.State switch
             {
-                EntityState.Added => data.Entity.CreatedDate = DateTime.UtcNow,
-                EntityState.Modified => data.Entity.UpdatedDate = DateTime.UtcNow,
+                EntityState.Added => data.Entity.CreateDate = DateTime.UtcNow,
+                EntityState.Modified => data.Entity.UpdateDate = DateTime.UtcNow,
                 _ => DateTime.UtcNow
             };
         }
@@ -65,28 +53,27 @@ public class EComDbContext : IdentityDbContext<AppUser, AppRole, int>
 
     #region OnModelCreating
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder builder)
     {
-        modelBuilder.Entity<Product_Order>().HasKey(x => new { x.ProductId, x.OrderId });
-        modelBuilder.Entity<Product_Order>().HasOne(m => m.Order).WithMany(am => am.Products_Orders).HasForeignKey(m => m.OrderId).OnDelete(DeleteBehavior.NoAction);
-        modelBuilder.Entity<Product_Order>().HasOne(m => m.Product).WithMany(am => am.Products_Orders).HasForeignKey(m => m.ProductId).OnDelete(DeleteBehavior.NoAction);
 
-        modelBuilder.Entity<Basket>().HasOne(b => b.Order).WithOne(o => o.Basket).HasForeignKey<Order>(b => b.Id);
+        builder.Entity<Order>()
+                .HasKey(b => b.Id);
 
-        modelBuilder.ApplyConfiguration(new AppUserConfiguration());
-        modelBuilder.ApplyConfiguration(new AppRoleConfiguration());
-        modelBuilder.ApplyConfiguration(new CustomerConfiguration());
-        modelBuilder.ApplyConfiguration(new CategoryConfiguration());
-        modelBuilder.ApplyConfiguration(new BrandConfiguration());
-        modelBuilder.ApplyConfiguration(new ColorConfiguration());
-        modelBuilder.ApplyConfiguration(new SizeConfiguration());
-        modelBuilder.ApplyConfiguration(new ProductConfiguration());
-        modelBuilder.ApplyConfiguration(new BasketConfiguration());
-        modelBuilder.ApplyConfiguration(new OrderConfiguration());
-        modelBuilder.ApplyConfiguration(new OfferConfiguration());
-        modelBuilder.ApplyConfiguration(new InvoiceFileConfiguration());
+        builder.Entity<Order>()
+            .HasIndex(o => o.OrderCode)
+            .IsUnique();
 
-        base.OnModelCreating(modelBuilder);
+        builder.Entity<Basket>()
+            .HasOne(b => b.Order)
+            .WithOne(o => o.Basket)
+            .HasForeignKey<Order>(b => b.Id);
+
+        builder.Entity<Order>()
+            .HasOne(o => o.CompletedOrder)
+            .WithOne(c => c.Order)
+            .HasForeignKey<CompletedOrder>(c => c.OrderId);
+
+        base.OnModelCreating(builder);
     }
 
     #endregion
