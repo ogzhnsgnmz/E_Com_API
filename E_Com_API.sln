@@ -31,7 +31,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECom.API", "Presentation\EC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SignalR", "SignalR", "{F73CD569-5E6F-49FE-AEB5-E9CDD61FCC80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECom.SignalR", "Infrastructure\ECom.SignalR\ECom.SignalR.csproj", "{FFA25680-6EBA-4DB6-B7A6-DA585D77559E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ECom.SignalR", "Infrastructure\ECom.SignalR\ECom.SignalR.csproj", "{FFA25680-6EBA-4DB6-B7A6-DA585D77559E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

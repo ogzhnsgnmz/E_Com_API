@@ -18,6 +18,7 @@ using ECom.Infrastructure.Helper.Filters;
 using FluentValidation.AspNetCore;
 using Serilog.Sinks.MSSqlServer;
 using ECom.Application.Validators.Products;
+using ECom.API.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -74,7 +75,11 @@ builder.Services.AddHttpLogging(logging =>
 });
 //
 
-builder.Services.AddControllers(options => { options.Filters.Add<ValidationFilter>(); })
+builder.Services.AddControllers(options => 
+{ 
+    options.Filters.Add<ValidationFilter>();
+    options.Filters.Add<RolePermissionFilter>();
+})
     .AddFluentValidation(config => config.RegisterValidatorsFromAssemblyContaining<CreateProductValidator>())
     .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
 

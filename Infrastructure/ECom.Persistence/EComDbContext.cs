@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using ECom.Domain.Entities;
 using ECom.Domain.Entities.Identity;
 using ECom.Domain.Entities.Common;
+using System.Drawing;
 
 namespace ECom.Persistence;
 
@@ -27,6 +28,9 @@ public class EComDbContext : IdentityDbContext<AppUser, AppRole, string>
     public DbSet<CompletedOrder> CompletedOrders { get; set; }
     public DbSet<Menu> Menus { get; set; }
     public DbSet<Endpoint> Endpoints { get; set; }
+    public DbSet<Category> Categories { get; set; }
+    public DbSet<Brand> Brands { get; set; }
+    public DbSet<ECom.Domain.Entities.Size> Sizes { get; set; }
 
     #endregion
 

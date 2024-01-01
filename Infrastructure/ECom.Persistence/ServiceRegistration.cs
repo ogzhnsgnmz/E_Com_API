@@ -27,6 +27,13 @@ using ECom.Application.Repositories.File;
 using ECom.Persistence.Repositories.File;
 using Microsoft.AspNetCore.Identity;
 using ETicaretAPI.Persistence.Services;
+using ECom.Application.Repositories.Category;
+using ECom.Application.Repositories.Size;
+using ECom.Persistence.Repositories.Size;
+using ECom.Application.Repositories.Brand;
+using ECom.Persistence.Repositories.Brand;
+using ECom.Persistence.Repositories.Category;
+using ECom.Application.UnitOfWork;
 
 namespace ECom.Persistence;
 
@@ -67,6 +74,13 @@ public static class ServiceRegistration
         services.AddScoped<IEndpointWriteRepository, EndpointWriteRepository>();
         services.AddScoped<IMenuReadRepository, MenuReadRepository>();
         services.AddScoped<IMenuWriteRepository, MenuWriteRepository>();
+        services.AddScoped<ISizeReadRepository, SizeReadRepository>();
+        services.AddScoped<ISizeWriteRepository, SizeWriteRepository>();
+        services.AddScoped<IBrandReadRepository, BrandReadRepository>();
+        services.AddScoped<IBrandWriteRepository, BrandWriteRepository>();
+        services.AddScoped<ICategoryReadRepository, CategoryReadRepository>();
+        services.AddScoped<ICategoryWriteRepository, CategoryWriteRepository>();
+
 
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IAuthService, AuthService>();
@@ -77,5 +91,7 @@ public static class ServiceRegistration
         services.AddScoped<IRoleService, RoleService>();
         services.AddScoped<IAuthorizationEndpointService, AuthorizationEndpointService>();
         services.AddScoped<IProductService, ProductService>();
+
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
 }

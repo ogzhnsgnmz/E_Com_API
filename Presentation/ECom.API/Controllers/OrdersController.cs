@@ -7,7 +7,6 @@ using ECom.Application.Features.Queries.Order.GetAllOrders;
 using ECom.Application.Features.Queries.Order.GetOrderById;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECom.API.Controllers;
@@ -39,6 +38,7 @@ public class OrdersController : ControllerBase
         GetAllOrdersQueryResponse response = await _mediator.Send(getAllOrdersQueryRequest);
         return Ok(response);
     } 
+
     [HttpPost]
     [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Orders, ActionType = ActionType.Writing, Definition = "Create Order")]
     public async Task<IActionResult> CreateOrder(CreateOrderCommandRequest createOrderCommandRequest)

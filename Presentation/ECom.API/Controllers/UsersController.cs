@@ -1,5 +1,5 @@
-﻿using ECom.Application.Abstractions.Services;
-using ECom.Application.CustomAttributes;
+﻿using ECom.Application.CustomAttributes;
+using ECom.Application.Enums;
 using ECom.Application.Features.Command.AppUser.AssignRoleToUser;
 using ECom.Application.Features.Command.AppUser.CreateUser;
 using ECom.Application.Features.Command.AppUser.UpdatePassword;
@@ -7,7 +7,6 @@ using ECom.Application.Features.Queries.AppUser.GetAllUsers;
 using ECom.Application.Features.Queries.AppUser.GetRolesToUser;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECom.API.Controllers;
@@ -17,11 +16,9 @@ namespace ECom.API.Controllers;
 public class UsersController : ControllerBase
 {
     readonly IMediator _mediator;
-    readonly IMailService _mailService;
-    public UsersController(IMediator mediator, IMailService mailService)
+    public UsersController(IMediator mediator)
     {
         _mediator = mediator;
-        _mailService = mailService;
     }
 
     [HttpPost]
@@ -40,6 +37,7 @@ public class UsersController : ControllerBase
 
     [HttpGet]
     [Authorize(AuthenticationSchemes = "Admin")]
+    [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get All Users", Menu = "Users")]
     public async Task<IActionResult> GetAllUsers([FromQuery] GetAllUsersQueryRequest getAllUsersQueryRequest)
     {
         GetAllUsersQueryResponse response = await _mediator.Send(getAllUsersQueryRequest);
@@ -48,6 +46,7 @@ public class UsersController : ControllerBase
 
     [HttpGet("get-roles-to-user/{UserId}")]
     [Authorize(AuthenticationSchemes = "Admin")]
+    [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get Roles To Users", Menu = "Users")]
     public async Task<IActionResult> GetRolesToUser([FromRoute] GetRolesToUserQueryRequest getRolesToUserQueryRequest)
     {
         GetRolesToUserQueryResponse response = await _mediator.Send(getRolesToUserQueryRequest);
@@ -56,6 +55,7 @@ public class UsersController : ControllerBase
 
     [HttpPost("assign-role-to-user")]
     [Authorize(AuthenticationSchemes = "Admin")]
+    [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Assign Role To User", Menu = "Users")]
     public async Task<IActionResult> AssignRoleToUser(AssignRoleToUserCommandRequest assignRoleToUserCommandRequest)
     {
         AssignRoleToUserCommandResponse response = await _mediator.Send(assignRoleToUserCommandRequest);

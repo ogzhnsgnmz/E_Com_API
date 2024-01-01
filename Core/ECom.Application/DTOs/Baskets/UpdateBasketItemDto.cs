@@ -2,6 +2,6 @@
 
 public class UpdateBasketItemDto
 {
-    public int BasketItemId { get; set; }
+    public string BasketItemId { get; set; }
     public int Quantity { get; set; }
 }

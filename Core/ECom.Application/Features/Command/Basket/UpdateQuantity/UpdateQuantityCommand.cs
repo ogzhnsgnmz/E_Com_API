@@ -15,7 +15,7 @@ namespace ECom.Application.Features.Command.Basket.UpdateQuantity
         {
             await _basketService.UpdateQuantityAsync(new()
             {
-                BasketItemId = int.Parse(request.BasketItemId),
+                BasketItemId = request.BasketItemId,
                 Quantity = request.Quantity,
             });
             return new();

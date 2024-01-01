@@ -6,28 +6,22 @@ using ECom.Application.Repositories.Endpoint;
 using ECom.Domain.Entities;
 using ECom.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ECom.Persistence.Services;
 
 public class UserService : IUserService
 {
-    readonly UserManager<Domain.Entities.Identity.AppUser> _userManager;
+    readonly UserManager<AppUser> _userManager;
     readonly IEndpointReadRepository _endpointReadRepository;
 
-    public UserService(UserManager<Domain.Entities.Identity.AppUser> userManager, IEndpointReadRepository endpointReadRepository)
+    public UserService(UserManager<AppUser> userManager, IEndpointReadRepository endpointReadRepository)
     {
         _userManager = userManager;
         _endpointReadRepository = endpointReadRepository;
     }
 
-    public int TotalUsersCount => throw new NotImplementedException();
+    public int TotalUsersCount => _userManager.Users.Count();
 
     public async Task AssignRoleToUserAsnyc(string userId, string[] roles)
     {
