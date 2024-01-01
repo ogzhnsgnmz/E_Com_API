@@ -5,12 +5,15 @@ using ECom.Domain.Entities;
 using ECom.Domain.Entities.Identity;
 using ECom.Domain.Entities.Common;
 using System.Drawing;
+using Microsoft.EntityFrameworkCore.Storage;
+using System.Data;
 
 namespace ECom.Persistence;
 
 
 public class EComDbContext : IdentityDbContext<AppUser, AppRole, string>
 {
+    private IDbContextTransaction _currentTransaction;
     public EComDbContext(DbContextOptions<EComDbContext> options) : base(options) 
     {
     
@@ -32,6 +35,61 @@ public class EComDbContext : IdentityDbContext<AppUser, AppRole, string>
     public DbSet<Brand> Brands { get; set; }
     public DbSet<ECom.Domain.Entities.Size> Sizes { get; set; }
 
+    #endregion
+
+    #region UnitOfWork
+    public bool HasActiveTransaction => _currentTransaction != null;
+
+    public IDbContextTransaction GetCurrentTransaction() => _currentTransaction;
+
+    public async Task BeginTransactionAsync()
+    {
+        if (_currentTransaction != null)
+        {
+            return;
+        }
+
+        _currentTransaction = await Database.BeginTransactionAsync(IsolationLevel.ReadCommitted);
+    }
+
+    public async Task CommitTransactionAsync()
+    {
+        try
+        {
+            await SaveChangesAsync();
+
+            _currentTransaction?.Commit();
+        }
+        catch
+        {
+            RollbackTransaction();
+            throw;
+        }
+        finally
+        {
+            if (_currentTransaction != null)
+            {
+                _currentTransaction.Dispose();
+                _currentTransaction = null;
+            }
+        }
+    }
+
+    public void RollbackTransaction()
+    {
+        try
+        {
+            _currentTransaction?.Rollback();
+        }
+        finally
+        {
+            if (_currentTransaction != null)
+            {
+                _currentTransaction.Dispose();
+                _currentTransaction = null;
+            }
+        }
+    }
     #endregion
 
     #region Customized SaveChangesAsync

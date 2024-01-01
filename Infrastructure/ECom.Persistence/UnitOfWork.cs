@@ -4,7 +4,7 @@ namespace ECom.Persistence;
 
 public class UnitOfWork : IUnitOfWork
 {
-    private readonly EComDbContext _context;  // IDbContext'i, gerçek DbContext tipinizle değiştirin
+    private readonly EComDbContext _context;
 
     public UnitOfWork(EComDbContext context)
     {
@@ -13,30 +13,25 @@ public class UnitOfWork : IUnitOfWork
 
     public void BeginTransaction()
     {
-        // İşlemi başlat
-        //_context.BeginTransaction();
+        _context.BeginTransactionAsync();
     }
 
     public void Commit()
     {
-        // İşlemi tamamla
-        //_context.Commit();
+        _context.CommitTransactionAsync();
     }
 
     public void Rollback()
     {
-        // İşlemi geri al
-        //_context.Rollback();
+        _context.RollbackTransaction();
     }
 
     public async Task SaveAsync()
     {
-        // Değişiklikleri veritabanına kaydet
         await _context.SaveChangesAsync();
     }
 
     public void Dispose()
     {
-        // Gerekirse kaynakları temizle
     }
 }

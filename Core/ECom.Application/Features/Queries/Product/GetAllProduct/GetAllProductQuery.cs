@@ -1,6 +1,5 @@
 ﻿using ECom.Application.Repositories.Product;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace ECom.Application.Features.Queries.Product.GetAllProduct;

@@ -3,89 +3,49 @@ using ECom.Application.Repositories.Brand;
 using ECom.Application.Repositories.Category;
 using ECom.Application.Repositories.Product;
 using ECom.Application.Repositories.Size;
-using ECom.Application.UnitOfWork;
-using ECom.Domain.Entities;
-using ECom.Domain.Entities.Identity;
 using MediatR;
-using System.Drawing;
 
 namespace ECom.Application.Features.Command.Product.CreateProduct;
 
 public class CreateProductCommandHandler : IRequestHandler<CreateProductCommandRequest, CreateProductCommandResponse>
 {
+
     readonly IProductWriteRepository _productWriteRepository;
-    readonly ISizeWriteRepository _sizeWriteRepository;
-    readonly IBrandWriteRepository _brandWriteRepository;
-    readonly ICategoryWriteRepository _categoryWriteRepository;
+    readonly ISizeReadRepository _sizeReadRepository;
+    readonly IBrandReadRepository _brandReadRepository;
+    readonly ICategoryReadRepository _categoryReadRepository;
     readonly IProductHubService _productHubService;
-    readonly IUnitOfWork _unitOfWork;
 
-    Guid SizeId = Guid.NewGuid();
-    Guid BrandId = Guid.NewGuid();
-    Guid CategoryId = Guid.NewGuid();
-
-    public CreateProductCommandHandler(IProductWriteRepository ProductWriteRepository, IProductHubService productHubService, ICategoryWriteRepository categoryWriteRepository, ISizeWriteRepository sizeWriteRepository, IBrandWriteRepository brandWriteRepository, IUnitOfWork unitOfWork)
+    public CreateProductCommandHandler(IProductWriteRepository ProductWriteRepository, IProductHubService productHubService, ISizeReadRepository sizeReadRepository, IBrandReadRepository brandReadRepository, ICategoryReadRepository categoryReadRepository)
     {
         _productWriteRepository = ProductWriteRepository;
-        _sizeWriteRepository = sizeWriteRepository;
-        _brandWriteRepository = brandWriteRepository;
-        _categoryWriteRepository = categoryWriteRepository;
         _productHubService = productHubService;
-        _unitOfWork = unitOfWork;
+        _sizeReadRepository = sizeReadRepository;
+        _brandReadRepository = brandReadRepository;
+        _categoryReadRepository = categoryReadRepository;
     }
 
     public async Task<CreateProductCommandResponse> Handle(CreateProductCommandRequest request, CancellationToken cancellationToken)
     {
-        try
+        var Size = _sizeReadRepository.GetAll().Where(s => s.Name == request.Size).ToList();
+        var Brand = _brandReadRepository.GetAll().Where(s => s.Name == request.Brand).ToList();
+        var Category = _categoryReadRepository.GetAll().Where(s => s.Name == request.Category).ToList();
+
+        await _productWriteRepository.AddAsync(new()
         {
-            _unitOfWork.BeginTransaction();
+            Name = request.Name,
+            Stock = request.Stock,
+            Price = request.Price,
+            SizeId = Size[0].Id,
+            BrandId = Brand[0].Id,
+            CategoryId = Category[0].Id,
+        });
 
-            await _sizeWriteRepository.AddAsync(new()
-            {
-                Id = SizeId,
-                Name = request.Size,
-            });
+        await _productWriteRepository.SaveAsync();
 
+        await _productHubService.ProductAddedMessageAsync($"{request.Name} isminde ürün eklenmiştir!");
 
-            await _brandWriteRepository.AddAsync(new()
-            {
-                Id = BrandId,
-                Name = request.Brand,
-            });
-
-
-            await _categoryWriteRepository.AddAsync(new()
-            {
-                Id = CategoryId,
-                Name = request.Category,
-            });
-
-            await _productWriteRepository.AddAsync(new()
-            {
-                Name = request.Name,
-                Stock = request.Stock,
-                Price = request.Price,
-                SizeId = SizeId,
-                BrandId = BrandId,
-                CategoryId = CategoryId,
-            });
-
-            await _unitOfWork.SaveAsync();
-            _unitOfWork.Commit();
-
-            await _productHubService.ProductAddedMessageAsync($"{request.Name} isminde ürün eklenmiştir!");
-
-            return new();
-        }
-        catch (Exception)
-        {
-            _unitOfWork.Rollback();
-            throw;
-        }
-        finally
-        {
-            _unitOfWork.Dispose();
-        }
+        return new();
     }
 }
 public class CreateProductCommandRequest : IRequest<CreateProductCommandResponse>
