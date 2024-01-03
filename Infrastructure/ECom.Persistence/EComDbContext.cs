@@ -7,6 +7,8 @@ using ECom.Domain.Entities.Common;
 using System.Drawing;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Data;
+using System.Reflection.Emit;
+using Persistence.Configurations;
 
 namespace ECom.Persistence;
 
@@ -14,16 +16,16 @@ namespace ECom.Persistence;
 public class EComDbContext : IdentityDbContext<AppUser, AppRole, string>
 {
     private IDbContextTransaction _currentTransaction;
-    public EComDbContext(DbContextOptions<EComDbContext> options) : base(options) 
+    public EComDbContext(DbContextOptions<EComDbContext> options) : base(options)
     {
-    
+
     }
 
     #region Entities
     public DbSet<Product> Products { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<Customer> Customers { get; set; }
-    public DbSet<ECom.Domain.Entities.File> Files { get; set; }
+    public DbSet<Domain.Entities.File> Files { get; set; }
     public DbSet<ProductImageFile> ProductImageFiles { get; set; }
     public DbSet<InvoiceFile> InvoiceFiles { get; set; }
     public DbSet<Basket> Baskets { get; set; }
@@ -33,7 +35,9 @@ public class EComDbContext : IdentityDbContext<AppUser, AppRole, string>
     public DbSet<Endpoint> Endpoints { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Brand> Brands { get; set; }
-    public DbSet<ECom.Domain.Entities.Size> Sizes { get; set; }
+    public DbSet<Domain.Entities.Size> Sizes { get; set; }
+    public DbSet<ProductAttribute> ProductAttributes { get; set; }
+    public DbSet<Domain.Entities.Attribute> Attributes { get; set; }
 
     #endregion
 
@@ -134,6 +138,8 @@ public class EComDbContext : IdentityDbContext<AppUser, AppRole, string>
             .HasOne(o => o.CompletedOrder)
             .WithOne(c => c.Order)
             .HasForeignKey<CompletedOrder>(c => c.OrderId);
+
+        //builder.ApplyConfiguration(new ProductConfiguration());
 
         base.OnModelCreating(builder);
     }

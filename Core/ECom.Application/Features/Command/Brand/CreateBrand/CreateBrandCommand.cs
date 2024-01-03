@@ -13,9 +13,9 @@ namespace ECom.Application.Features.Command.Brand.CreateBrand
     {
         private readonly IBrandWriteRepository _brandWriteRepository;
 
-        public CreateBrandCommandHandler(IBrandWriteRepository brandWriteRepository)
+        public CreateBrandCommandHandler(IBrandWriteRepository BrandWriteRepository)
         {
-            _brandWriteRepository = brandWriteRepository;
+            _brandWriteRepository = BrandWriteRepository;
         }
 
         public async Task<CreateBrandCommandResponse> Handle(CreateBrandCommandRequest request, CancellationToken cancellationToken)

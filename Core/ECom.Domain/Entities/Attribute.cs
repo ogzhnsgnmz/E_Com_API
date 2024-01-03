@@ -2,7 +2,8 @@
 
 namespace ECom.Domain.Entities;
 
-public class Size : BaseEntity
+public class Attribute : BaseEntity
 {
     public string Name { get; set; }
+    public ICollection<ProductAttribute> Attributes { get; set; }
 }

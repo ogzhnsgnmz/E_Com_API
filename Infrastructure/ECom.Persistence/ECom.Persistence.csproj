@@ -30,4 +30,8 @@
     <ProjectReference Include="..\..\Core\ECom.Application\ECom.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Configurations\" />
+  </ItemGroup>
+
 </Project>

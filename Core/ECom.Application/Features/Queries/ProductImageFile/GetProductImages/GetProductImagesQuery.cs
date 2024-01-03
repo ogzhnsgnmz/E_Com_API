@@ -20,12 +20,14 @@ public class GetProductImagesQueryHandler : IRequestHandler<GetProductImagesQuer
     {
         Domain.Entities.Product? Product = await _ProductReadRepository.Table.Include(p => p.ProductImageFiles).FirstOrDefaultAsync(p => p.Id == Guid.Parse(request.Id));
 
-        return Product?.ProductImageFiles.Select(p => new GetProductImagesQueryResponse
+        var response = Product?.ProductImageFiles.Select(p => new GetProductImagesQueryResponse
         {
             Path = $"{_configuration["BaseStorageUrl"]}/{p.Path}",
             FileName = p.FileName,
             Id = p.Id
         }).ToList();
+
+        return response;
     }
 }
 public class GetProductImagesQueryRequest : IRequest<List<GetProductImagesQueryResponse>>

@@ -27,6 +27,7 @@ public class GetCategoriesQueryHandler : IRequestHandler<GetCategoriesQueryReque
             {
                 p.Id,
                 p.Name,
+                p.Slug,
                 p.CreateDate,
                 p.UpdateDate,
             }).ToList();

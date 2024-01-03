@@ -37,6 +37,27 @@ namespace ECom.Persistence.Migrations
                     b.ToTable("AppRoleEndpoint");
                 });
 
+            modelBuilder.Entity("ECom.Domain.Entities.Attribute", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Attributes");
+                });
+
             modelBuilder.Entity("ECom.Domain.Entities.Basket", b =>
                 {
                     b.Property<Guid>("Id")
@@ -124,12 +145,46 @@ namespace ECom.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("UpdateDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("ECom.Domain.Entities.Comment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Comment");
                 });
 
             modelBuilder.Entity("ECom.Domain.Entities.CompletedOrder", b =>
@@ -417,6 +472,10 @@ namespace ECom.Persistence.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -424,8 +483,9 @@ namespace ECom.Persistence.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid>("SizeId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Stock")
                         .HasColumnType("int");
@@ -439,9 +499,38 @@ namespace ECom.Persistence.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("SizeId");
-
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("ECom.Domain.Entities.ProductAttribute", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AttributeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AttributeId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductAttributes");
                 });
 
             modelBuilder.Entity("ECom.Domain.Entities.Size", b =>
@@ -651,6 +740,17 @@ namespace ECom.Persistence.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("ECom.Domain.Entities.Comment", b =>
+                {
+                    b.HasOne("ECom.Domain.Entities.Product", "Product")
+                        .WithMany("Comments")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("ECom.Domain.Entities.CompletedOrder", b =>
                 {
                     b.HasOne("ECom.Domain.Entities.Order", "Order")
@@ -698,17 +798,28 @@ namespace ECom.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ECom.Domain.Entities.Size", "Size")
-                        .WithMany("Products")
-                        .HasForeignKey("SizeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Brand");
 
                     b.Navigation("Category");
+                });
 
-                    b.Navigation("Size");
+            modelBuilder.Entity("ECom.Domain.Entities.ProductAttribute", b =>
+                {
+                    b.HasOne("ECom.Domain.Entities.Attribute", "Attribute")
+                        .WithMany("Attributes")
+                        .HasForeignKey("AttributeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ECom.Domain.Entities.Product", "Product")
+                        .WithMany("Attributes")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Attribute");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -777,6 +888,11 @@ namespace ECom.Persistence.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ECom.Domain.Entities.Attribute", b =>
+                {
+                    b.Navigation("Attributes");
+                });
+
             modelBuilder.Entity("ECom.Domain.Entities.Basket", b =>
                 {
                     b.Navigation("BasketItems");
@@ -813,12 +929,11 @@ namespace ECom.Persistence.Migrations
 
             modelBuilder.Entity("ECom.Domain.Entities.Product", b =>
                 {
-                    b.Navigation("BasketItems");
-                });
+                    b.Navigation("Attributes");
 
-            modelBuilder.Entity("ECom.Domain.Entities.Size", b =>
-                {
-                    b.Navigation("Products");
+                    b.Navigation("BasketItems");
+
+                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }

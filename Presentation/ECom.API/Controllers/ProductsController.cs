@@ -69,8 +69,6 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet("[action]/{id}")]
-    [Authorize(AuthenticationSchemes = "Admin")]
-    [AuthorizeDefinition(Menu = AuthorizeDefinitionConstants.Products, ActionType = ActionType.Reading, Definition = "Get Product Image")]
     public async Task<IActionResult> GetProductImages([FromRoute] GetProductImagesQueryRequest getProductImagesQueryRequest)
         => Ok(await _mediator.Send(getProductImagesQueryRequest));
 

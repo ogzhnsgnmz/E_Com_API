@@ -29,6 +29,7 @@ public class GetCategoryByIdQueryHandler : IRequestHandler<GetCategoryByIdQueryR
             {
                 p.Id,
                 p.Name,
+                p.Slug,
                 p.CreateDate,
                 p.UpdateDate,
             }).ToList();

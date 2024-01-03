@@ -22,7 +22,8 @@ namespace ECom.Application.Features.Command.Category.CreateCategory
         {
             await _categoryWriteRepository.AddAsync(new()
             {
-                Name = request.Name
+                Name = request.Name,
+                Slug = request.Slug
             });
 
             await _categoryWriteRepository.SaveAsync();
@@ -34,6 +35,7 @@ namespace ECom.Application.Features.Command.Category.CreateCategory
     public class CreateCategoryCommandRequest : IRequest<CreateCategoryCommandResponse>
     {
         public string Name { get; set; }
+        public string Slug { get; set; }
     }
 
     public class CreateCategoryCommandResponse

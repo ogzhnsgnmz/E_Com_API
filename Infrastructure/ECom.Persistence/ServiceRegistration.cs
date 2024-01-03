@@ -34,6 +34,10 @@ using ECom.Application.Repositories.Brand;
 using ECom.Persistence.Repositories.Brand;
 using ECom.Persistence.Repositories.Category;
 using ECom.Application.UnitOfWork;
+using ECom.Application.Repositories.Attribute;
+using ECom.Persistence.Repositories.Attribute;
+using ECom.Application.Repositories.ProductAttribute;
+using ECom.Persistence.Repositories.ProductAttribute;
 
 namespace ECom.Persistence;
 
@@ -80,6 +84,10 @@ public static class ServiceRegistration
         services.AddScoped<IBrandWriteRepository, BrandWriteRepository>();
         services.AddScoped<ICategoryReadRepository, CategoryReadRepository>();
         services.AddScoped<ICategoryWriteRepository, CategoryWriteRepository>();
+        services.AddScoped<IAttributeReadRepository, AttributeReadRepository>();
+        services.AddScoped<IAttributeWriteRepository, AttributeWriteRepository>();
+        services.AddScoped<IProductAttributeReadRepository, ProductAttributeReadRepository>();
+        services.AddScoped<IProductAttributeWriteRepository, ProductAttributeWriteRepository>();
 
 
         services.AddScoped<IUserService, UserService>();

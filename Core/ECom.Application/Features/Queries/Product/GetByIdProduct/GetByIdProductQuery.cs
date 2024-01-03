@@ -19,7 +19,9 @@ public class GetByIdProductQueryHandler : IRequestHandler<GetByIdProductQueryReq
         {
             Name = Product.Name,
             Stock = Product.Stock,
-            Price = Product.Price
+            Price = Product.Price,
+            Description = Product.Description,
+            Slug = Product.Slug
         };
     }
 }
@@ -32,6 +34,8 @@ public class GetByIdProductQueryResponse
     public string Name { get; set; }
     public int Stock { get; set; }
     public decimal Price { get; set; }
+    public string Description { get; set; }
+    public string Slug { get; set; }
     public bool IsOfferable { get; set; }
     public bool IsSold { get; set; }
 }
