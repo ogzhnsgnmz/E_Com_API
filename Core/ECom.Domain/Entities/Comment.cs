@@ -9,10 +9,11 @@ namespace ECom.Domain.Entities
 {
     public class Comment : BaseEntity
     {
-        public string Title { get; set; }
-        public string Content { get; set; }
-
         public Guid ProductId { get; set; }
         public Product Product { get; set; }
+        public string UserName { get; set; }
+        public string Content { get; set; }
+        public int Ratings { get; set; }
+        public DateTime Timestamp { get; set; }
     }
 }

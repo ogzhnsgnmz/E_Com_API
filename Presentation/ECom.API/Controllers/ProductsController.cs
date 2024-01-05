@@ -9,6 +9,7 @@ using ECom.Application.Features.Command.ProductImageFile.RemoveProductImage;
 using ECom.Application.Features.Command.ProductImageFile.UploadProductImage;
 using ECom.Application.Features.Queries.Product.GetAllProduct;
 using ECom.Application.Features.Queries.Product.GetByIdProduct;
+using ECom.Application.Features.Queries.Product.GetProductBrandQuery;
 using ECom.Application.Features.Queries.ProductImageFile.GetProductImages;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -29,13 +30,17 @@ public class ProductsController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpGet]
-    public async Task<IActionResult> Get([FromQuery] GetAllProductQueryRequest getAllProductQueryRequest)
-        => Ok(await _mediator.Send(getAllProductQueryRequest));
+    [HttpGet("GetProducts")]
+    public async Task<IActionResult> GetProducts([FromQuery] GetAllProductQueryRequest getAllProductQueryRequest)
+    => Ok(await _mediator.Send(getAllProductQueryRequest));
 
-    [HttpGet("{Id}")]
-    public async Task<IActionResult> Get([FromRoute] GetByIdProductQueryRequest getByIdProductQueryRequest)
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetProductById([FromRoute] GetByIdProductQueryRequest getByIdProductQueryRequest)
         => Ok(await _mediator.Send(getByIdProductQueryRequest));
+
+    [HttpGet("GetProductBrands")]
+    public async Task<IActionResult> GetProductBrands([FromQuery] GetProductBrandQueryRequest getProductBrandQueryRequest)
+    => Ok(await _mediator.Send(getProductBrandQueryRequest));
 
     [HttpPost]
     [Authorize(AuthenticationSchemes = "Admin")]

@@ -20,7 +20,7 @@ public class CreateProductAttributeCommandHandler : IRequestHandler<CreateProduc
         {
             Value = request.Value,
             ProductId = Guid.Parse(request.ProductId),
-            AttributeId = Guid.Parse("EF625341-AB8F-45B3-22EA-08DC0C6D24E5")
+            AttributeId = Guid.Parse(request.AttributeId)
         });
 
         await _productAttributeWriteRepository.SaveAsync();
@@ -31,6 +31,7 @@ public class CreateProductAttributeCommandHandler : IRequestHandler<CreateProduc
 public class CreateProductAttributeCommandRequest : IRequest<CreateProductAttributeCommandResponse>
 {
     public string Value { get; set; }
+    public string AttributeId { get; set; }
     public string ProductId { get; set; }
 }
 public class CreateProductAttributeCommandResponse
