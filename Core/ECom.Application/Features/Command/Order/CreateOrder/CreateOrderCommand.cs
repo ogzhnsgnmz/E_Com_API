@@ -42,8 +42,8 @@ namespace ECom.Application.Features.Command.Order.CreateOrder
     }
     public class CreateOrderCommandRequest : IRequest<CreateOrderCommandResponse>
     {
-        public string Description { get; set; }
-        public string Address { get; set; }
+        public string Description { get; set; } = "Örnek açıklama";
+        public string Address { get; set; } = "Örnek adres";
     }
     public class CreateOrderCommandResponse
     {

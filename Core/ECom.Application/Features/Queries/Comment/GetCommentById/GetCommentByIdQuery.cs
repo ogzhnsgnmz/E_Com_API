@@ -26,11 +26,16 @@ public class GetCommentByIdQueryHandler : IRequestHandler<GetCommentByIdQueryReq
                 p.Id,
                 p.Content,
                 p.UserName,
+                p.Ratings,
                 p.CreateDate,
             }).ToList();
+
+        double avrRating = Comments.Any() ? Math.Round(Comments.Average(p => p.Ratings), 2) : 0;
+
         return new()
         {
             Datas = Comments,
+            AvrRating = avrRating,
             TotalCount = TotalCount
         };
     }
@@ -45,4 +50,5 @@ public class GetCommentByIdQueryResponse
 {
     public object Datas { get; set; }
     public int TotalCount { get; set; }
+    public double AvrRating { get; set; }
 }

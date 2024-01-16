@@ -45,8 +45,8 @@ public class GetCommentsQueryHandler : IRequestHandler<GetCommentsQueryRequest, 
 }
 public class GetCommentsQueryRequest : IRequest<GetCommentsQueryResponse>
 {
-    public int Page { get; set; }
-    public int Comment { get; set; }
+    public int Page { get; set; } = 0;
+    public int Comment { get; set; } = 5;
     public string ProductId { get; set; }
 }
 public class GetCommentsQueryResponse

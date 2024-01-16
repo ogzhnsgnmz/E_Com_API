@@ -8,6 +8,9 @@ public class Product : BaseEntity
     public int Stock { get; set; }
     public decimal Price { get; set; }
     public string Description { get; set; }
+    public string DescriptionEn { get; set; }
+    public string DescriptionFr { get; set; }
+    public string DescriptionGe { get; set; }
     public string Slug { get; set; }
 
     public Guid CategoryId { get; set; }

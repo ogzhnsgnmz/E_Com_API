@@ -38,6 +38,7 @@ public class EComDbContext : IdentityDbContext<AppUser, AppRole, string>
     public DbSet<Domain.Entities.Size> Sizes { get; set; }
     public DbSet<ProductAttribute> ProductAttributes { get; set; }
     public DbSet<Domain.Entities.Attribute> Attributes { get; set; }
+    public DbSet<Address> Addresses { get; set; }
 
     #endregion
 

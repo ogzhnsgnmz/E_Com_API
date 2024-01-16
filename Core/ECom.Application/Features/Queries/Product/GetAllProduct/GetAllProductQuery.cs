@@ -1,4 +1,5 @@
 ﻿using ECom.Application.Repositories.Category;
+using ECom.Application.Repositories.Comment;
 using ECom.Application.Repositories.Product;
 using ECom.Domain.Entities;
 using MediatR;
@@ -10,13 +11,15 @@ public class GetAllProductQueryHandler : IRequestHandler<GetAllProductQueryReque
 {
     readonly IProductReadRepository _productReadRepository;
     readonly ICategoryReadRepository _categoryReadRepository;
+    readonly ICommentReadRepository _commentReadRepository;
     readonly ILogger<GetAllProductQueryHandler> _logger;
 
-    public GetAllProductQueryHandler(IProductReadRepository ProductReadRepository, ILogger<GetAllProductQueryHandler> logger = null, ICategoryReadRepository pategoryReadRepository = null, ICategoryReadRepository categoryReadRepository = null)
+    public GetAllProductQueryHandler(IProductReadRepository ProductReadRepository, ILogger<GetAllProductQueryHandler> logger = null, ICategoryReadRepository pategoryReadRepository = null, ICategoryReadRepository categoryReadRepository = null, ICommentReadRepository commentReadRepository = null)
     {
         _productReadRepository = ProductReadRepository;
         _categoryReadRepository = categoryReadRepository;
         _logger = logger;
+        _commentReadRepository = commentReadRepository;
     }
 
     public async Task<GetAllProductQueryResponse> Handle(GetAllProductQueryRequest request, CancellationToken cancellationToken)
@@ -56,7 +59,8 @@ public class GetAllProductQueryHandler : IRequestHandler<GetAllProductQueryReque
                 p.CreateDate,
                 p.UpdateDate,
                 p.ProductImageFiles,
-                Category = p.Category.Name
+                Category = p.Category.Name,
+                CommentCount = _commentReadRepository.GetAll(false).Count(comment => comment.ProductId == p.Id),
             })
             .ToList();
 

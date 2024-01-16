@@ -24,7 +24,6 @@ namespace ECom.API.Controllers
         }
 
         [HttpGet]
-        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get ProductAttributes", Menu = "ProductAttributes")]
         public async Task<IActionResult> GetProductAttributes([FromQuery] GetProductAttributesQueryRequest getProductAttributesQueryRequest)
         {
             GetProductAttributeQueryResponse response = await _mediator.Send(getProductAttributesQueryRequest);
@@ -32,7 +31,6 @@ namespace ECom.API.Controllers
         }
 
         [HttpGet("{Id}")]
-        [AuthorizeDefinition(ActionType = ActionType.Reading, Definition = "Get ProductAttribute By Id", Menu = "ProductAttributes")]
         public async Task<IActionResult> GetProductAttributes([FromRoute] GetByIdProductAttributeQueryRequest getProductAttributeByIdQueryRequest)
         {
             GetProductAttributeByIdQueryResponse response = await _mediator.Send(getProductAttributeByIdQueryRequest);

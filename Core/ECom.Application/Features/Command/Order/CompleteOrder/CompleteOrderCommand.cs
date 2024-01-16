@@ -23,8 +23,8 @@ namespace ECom.Application.Features.Command.Order.CompleteOrder
         public async Task<CompleteOrderCommandResponse> Handle(CompleteOrderCommandRequest request, CancellationToken cancellationToken)
         {
             (bool succeeded, CompletedOrder dto) = await _orderService.CompleteOrderAsync(request.Id);
-            if (succeeded)
-                await _mailService.SendCompletedOrderMailAsync(dto.EMail, dto.OrderCode, dto.OrderDate, dto.Username);
+            //if (succeeded)
+                //await _mailService.SendCompletedOrderMailAsync(dto.EMail, dto.OrderCode, dto.OrderDate, dto.Username);
             return new();
         }
     }

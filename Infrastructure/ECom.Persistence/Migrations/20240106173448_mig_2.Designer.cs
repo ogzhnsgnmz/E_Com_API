@@ -4,6 +4,7 @@ using ECom.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECom.Persistence.Migrations
 {
     [DbContext(typeof(EComDbContext))]
-    partial class EComDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240106173448_mig_2")]
+    partial class mig_2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,59 +38,6 @@ namespace ECom.Persistence.Migrations
                     b.HasIndex("RolesId");
 
                     b.ToTable("AppRoleEndpoint");
-                });
-
-            modelBuilder.Entity("ECom.Domain.Entities.Address", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("District")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Neighborhood")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Number")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PostalCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Province")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Street")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
-
-                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("ECom.Domain.Entities.Attribute", b =>
@@ -781,15 +731,6 @@ namespace ECom.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ECom.Domain.Entities.Address", b =>
-                {
-                    b.HasOne("ECom.Domain.Entities.Identity.AppUser", "AppUser")
-                        .WithMany("Addresses")
-                        .HasForeignKey("AppUserId");
-
-                    b.Navigation("AppUser");
-                });
-
             modelBuilder.Entity("ECom.Domain.Entities.Basket", b =>
                 {
                     b.HasOne("ECom.Domain.Entities.Identity.AppUser", "User")
@@ -993,8 +934,6 @@ namespace ECom.Persistence.Migrations
 
             modelBuilder.Entity("ECom.Domain.Entities.Identity.AppUser", b =>
                 {
-                    b.Navigation("Addresses");
-
                     b.Navigation("Baskets");
                 });
 

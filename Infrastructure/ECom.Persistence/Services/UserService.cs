@@ -152,4 +152,10 @@ public class UserService : IUserService
         else
             throw new NotFoundUserException();
     }
+
+    public async Task<string> GetUserIdByUserNameAsync(string userName)
+    {
+        AppUser user = await _userManager.FindByNameAsync(userName);
+        return user?.Id;
+    }
 }

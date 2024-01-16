@@ -40,6 +40,8 @@ using ECom.Application.Repositories.ProductAttribute;
 using ECom.Persistence.Repositories.ProductAttribute;
 using ECom.Application.Repositories.Comment;
 using ECom.Persistence.Repositories.Comment;
+using ECom.Persistence.Repositories.Address;
+using ECom.Application.Repositories.Address;
 
 namespace ECom.Persistence;
 
@@ -92,6 +94,8 @@ public static class ServiceRegistration
         services.AddScoped<IProductAttributeWriteRepository, ProductAttributeWriteRepository>();
         services.AddScoped<ICommentReadRepository, CommentReadRepository>();
         services.AddScoped<ICommentWriteRepository, CommentWriteRepository>();
+        services.AddScoped<IAddressReadRepository, AddressReadRepository>();
+        services.AddScoped<IAddressWriteRepository, AddressWriteRepository>();
 
 
         services.AddScoped<IUserService, UserService>();

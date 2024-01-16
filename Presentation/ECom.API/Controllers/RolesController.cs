@@ -6,8 +6,6 @@ using ECom.Application.Features.Command.Role.UpdateRole;
 using ECom.Application.Features.Queries.Role.GetRoleById;
 using ECom.Application.Features.Queries.Role.GetRoles;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECom.API.Controllers
